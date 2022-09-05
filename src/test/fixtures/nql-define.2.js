@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-var warned = {};
+let warned = {};
 export function warning(valid, message) {
   // Support uglify
   if (

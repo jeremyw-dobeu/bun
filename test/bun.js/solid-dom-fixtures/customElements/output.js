@@ -1,14 +1,16 @@
-import { template as _$template } from "r-dom";
-import { effect as _$effect } from "r-dom";
-import { getOwner as _$getOwner } from "r-dom";
-import { setAttribute as _$setAttribute } from "r-dom";
+import {
+  template as _$template,
+  effect as _$effect,
+  getOwner as _$getOwner,
+  setAttribute as _$setAttribute,
+} from "r-dom";
 
-const _tmpl$ = /*#__PURE__*/ _$template(`<my-element></my-element>`, 2),
-  _tmpl$2 = /*#__PURE__*/ _$template(
-    `<my-element><header slot="head">Title</header></my-element>`,
-    4
-  ),
-  _tmpl$3 = /*#__PURE__*/ _$template(`<slot name="head"></slot>`, 2);
+const _tmpl$ = /* #__PURE__ */ _$template("<my-element></my-element>", 2);
+const _tmpl$2 = /* #__PURE__ */ _$template(
+  '<my-element><header slot="head">Title</header></my-element>',
+  4
+);
+const _tmpl$3 = /* #__PURE__ */ _$template('<slot name="head"></slot>', 2);
 
 const template = (() => {
   const _el$ = document.importNode(_tmpl$, true);
@@ -30,10 +32,10 @@ const template2 = (() => {
 
   _$effect(
     (_p$) => {
-      const _v$ = state.name,
-        _v$2 = state.data,
-        _v$3 = state.data,
-        _v$4 = state.data;
+      const _v$ = state.name;
+      const _v$2 = state.data;
+      const _v$3 = state.data;
+      const _v$4 = state.data;
       _v$ !== _p$._v$ && (_el$2.someAttr = _p$._v$ = _v$);
       _v$2 !== _p$._v$2 && (_el$2.notprop = _p$._v$2 = _v$2);
       _v$3 !== _p$._v$3 && _$setAttribute(_el$2, "my-attr", (_p$._v$3 = _v$3));

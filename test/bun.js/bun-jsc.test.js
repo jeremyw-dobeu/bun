@@ -26,8 +26,8 @@ import {
 
 describe("bun:jsc", () => {
   function count() {
-    var j = 0;
-    for (var i = 0; i < 999999; i++) {
+    let j = 0;
+    for (let i = 0; i < 999999; i++) {
       j += i + 2;
     }
 

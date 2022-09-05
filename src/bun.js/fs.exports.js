@@ -1,4 +1,4 @@
-var fs = Bun.fs();
+const fs = Bun.fs();
 
 export function access(...args) {
   callbackify(fs.accessSync, args);
@@ -126,9 +126,9 @@ function promisify(fsFunction) {
   // TODO: remove variadic arguments
   // we can use new Function() here instead
   // based on fsFucntion.length
-  var obj = {
+  const obj = {
     [fsFunction.name]: function (resolve, reject, args) {
-      var result;
+      let result;
       try {
         result = fsFunction.apply(fs, args);
         args = undefined;
@@ -142,7 +142,7 @@ function promisify(fsFunction) {
     },
   };
 
-  var func = obj[fsFunction.name];
+  const func = obj[fsFunction.name];
 
   // TODO: consider @createPromiseCapabiilty intrinsic
   return (...args) => {

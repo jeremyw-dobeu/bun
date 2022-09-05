@@ -1,26 +1,23 @@
 import {
-__HMRClient as Bun
+  __HMRClient as Bun,
+  __HMRModule as HMR,
 } from "http://localhost:8080/bun:wrap";
 Bun.activate(false);
-import {
-__HMRModule as HMR
-} from "http://localhost:8080/bun:wrap";
-var hmr = new HMR(1227236257, "ts-fallback-rewrite-works.ts"), exports = hmr.exports;
-(hmr._load = function() {
+const hmr = new HMR(1227236257, "ts-fallback-rewrite-works.ts");
+const exports = hmr.exports;
+(hmr._load = function () {
   function test() {
     return testDone(import.meta.url);
   }
   hmr.exportAll({
-    test: () => test
+    test: () => test,
   });
 })();
-var $$hmr_test = hmr.exports.test;
-hmr._update = function(exports) {
+let $$hmr_test = hmr.exports.test;
+hmr._update = function (exports) {
   $$hmr_test = exports.test;
 };
 
-export {
-  $$hmr_test as test
-};
+export { $$hmr_test as test };
 
-//# sourceMappingURL=http://localhost:8080/ts-fallback-rewrite-works.js.map
+// # sourceMappingURL=http://localhost:8080/ts-fallback-rewrite-works.js.map

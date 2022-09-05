@@ -1,6 +1,6 @@
 // --- FFIType ---
 
-var ffi = globalThis.Bun.FFI;
+const ffi = globalThis.Bun.FFI;
 export const ptr = (arg1, arg2) =>
   typeof arg2 === "undefined" ? ffi.ptr(arg1) : ffi.ptr(arg1, arg2);
 export const toBuffer = ffi.toBuffer;
@@ -56,7 +56,7 @@ Object.defineProperty(globalThis, "__GlobalBunCString", {
 });
 
 const ffiWrappers = new Array(16);
-var char = (val) => val | 0;
+const char = (val) => val | 0;
 ffiWrappers.fill(char);
 ffiWrappers[FFIType.uint8_t] = function uint8(val) {
   return val < 0 ? 0 : val >= 255 ? 255 : val | 0;
@@ -127,8 +127,9 @@ ffiWrappers[FFIType.uint64_t] = function uint64(val) {
 
 ffiWrappers[FFIType.u64_fast] = function u64_fast(val) {
   if (typeof val === "bigint") {
-    if (val <= BigInt(Number.MAX_SAFE_INTEGER) && val >= BigInt(0))
+    if (val <= BigInt(Number.MAX_SAFE_INTEGER) && val >= BigInt(0)) {
       return Number(val);
+    }
     return val;
   }
 
@@ -199,8 +200,8 @@ function FFIBuilder(params, returnType, functionToCall, name) {
   const hasReturnType =
     typeof FFIType[returnType] === "number" &&
     FFIType[returnType] !== FFIType.void;
-  var paramNames = new Array(params.length);
-  var args = new Array(params.length);
+  const paramNames = new Array(params.length);
+  const args = new Array(params.length);
   for (let i = 0; i < params.length; i++) {
     paramNames[i] = `p${i}`;
     const wrapper = ffiWrappers[FFIType[params[i]]];
@@ -216,7 +217,7 @@ function FFIBuilder(params, returnType, functionToCall, name) {
     }
   }
 
-  var code = `functionToCall(${args.join(", ")})`;
+  let code = `functionToCall(${args.join(", ")})`;
   if (hasReturnType) {
     if (FFIType[returnType] === FFIType.cstring) {
       code = `return (${cstringReturnType.toString()})(${code})`;
@@ -225,7 +226,7 @@ function FFIBuilder(params, returnType, functionToCall, name) {
     }
   }
 
-  var func = new Function("functionToCall", ...paramNames, code);
+  const func = new Function("functionToCall", ...paramNames, code);
   Object.defineProperty(func, "name", {
     value: name,
   });
@@ -233,7 +234,7 @@ function FFIBuilder(params, returnType, functionToCall, name) {
   // variadic arguments can be expensive
   // most FFI functions are going to be < 5 arguments
   // so we just inline it
-  var wrap;
+  let wrap;
   switch (paramNames.length) {
     case 0:
       wrap = () => func(functionToCall);
@@ -302,8 +303,8 @@ export const native = {
 export function dlopen(path, options) {
   const result = nativeDLOpen(path, options);
 
-  for (let key in result.symbols) {
-    var symbol = result.symbols[key];
+  for (const key in result.symbols) {
+    const symbol = result.symbols[key];
     if (
       options[key]?.args?.length ||
       FFIType[options[key]?.returns] === FFIType.cstring
@@ -333,8 +334,8 @@ export function dlopen(path, options) {
 export function linkSymbols(options) {
   const result = nativeLinkSymbols(options);
 
-  for (let key in result.symbols) {
-    var symbol = result.symbols[key];
+  for (const key in result.symbols) {
+    const symbol = result.symbols[key];
     if (
       options[key]?.args?.length ||
       FFIType[options[key]?.returns] === FFIType.cstring
@@ -354,18 +355,18 @@ export function linkSymbols(options) {
   return result;
 }
 
-var cFunctionI = 0;
-var cFunctionRegistry;
+let cFunctionI = 0;
+let cFunctionRegistry;
 function onCloseCFunction(close) {
   close();
 }
 export function CFunction(options) {
   const identifier = `CFunction${cFunctionI++}`;
-  var result = linkSymbols({
+  const result = linkSymbols({
     [identifier]: options,
   });
-  var hasClosed = false;
-  var close = result.close;
+  let hasClosed = false;
+  let close = result.close;
   result.symbols[identifier].close = () => {
     if (hasClosed || !close) return;
     hasClosed = true;

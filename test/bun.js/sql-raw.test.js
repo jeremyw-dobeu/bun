@@ -1,6 +1,6 @@
 import { expect, it } from "bun:test";
 
-var SQL = globalThis[Symbol.for("Bun.lazy")]("sqlite");
+const SQL = globalThis[Symbol.for("Bun.lazy")]("sqlite");
 
 it("works", () => {
   const handle = SQL.open("/tmp/northwind.sqlite");
@@ -10,7 +10,7 @@ it("works", () => {
     'SELECT * FROM "Order" WHERE OrderDate > date($date)'
   );
   expect(stmt.toString()).toBe(
-    `SELECT * FROM "Order" WHERE OrderDate > date(NULL)`
+    'SELECT * FROM "Order" WHERE OrderDate > date(NULL)'
   );
 
   expect(
@@ -24,10 +24,10 @@ it("works", () => {
     )
   ).toBe(true);
   expect(stmt.toString()).toBe(
-    `SELECT * FROM "Order" WHERE OrderDate > date('1996-09-01T07:00:00.000Z')`
+    "SELECT * FROM \"Order\" WHERE OrderDate > date('1996-09-01T07:00:00.000Z')"
   );
 
-  var ran = stmt.run({
+  const ran = stmt.run({
     $date: new Date(
       new Date(1997, 8, 1, 0, 0, 0, 0).toUTCString()
     ).toISOString(),
@@ -35,7 +35,7 @@ it("works", () => {
   expect(Array.isArray(ran)).toBe(false);
   expect(ran === undefined).toBe(true);
   expect(stmt.toString()).toBe(
-    `SELECT * FROM "Order" WHERE OrderDate > date('1997-09-01T07:00:00.000Z')`
+    "SELECT * FROM \"Order\" WHERE OrderDate > date('1997-09-01T07:00:00.000Z')"
   );
 
   expect(
@@ -48,7 +48,7 @@ it("works", () => {
     )
   ).toBe(false);
   expect(stmt.toString()).toBe(
-    `SELECT * FROM "Order" WHERE OrderDate > date('1998-09-01T07:00:00.000Z')`
+    "SELECT * FROM \"Order\" WHERE OrderDate > date('1998-09-01T07:00:00.000Z')"
   );
   expect(stmt.paramsCount).toBe(1);
   expect(stmt.columnsCount).toBe(14);

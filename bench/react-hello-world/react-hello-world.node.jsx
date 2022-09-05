@@ -9,7 +9,7 @@ const App = () => (
     </body>
   </html>
 );
-var didError = false;
+let didError = false;
 http
   .createServer(function (req, res) {
     const stream = renderToPipeableStream(<App />, {

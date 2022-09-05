@@ -34,7 +34,7 @@ const templateLiteralWhichDefinesAFunction = ((...args) =>
 `;
 
 export function test() {
-  for (let foo of [fooNoBracesUT16, fooNoBracesUTF8, fooUTF16, fooUTF8]) {
+  for (const foo of [fooNoBracesUT16, fooNoBracesUTF8, fooUTF16, fooUTF8]) {
     console.assert(
       foo.includes("before"),
       `Expected ${foo} to include "before"`

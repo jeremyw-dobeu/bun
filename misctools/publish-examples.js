@@ -12,7 +12,7 @@ const exec = (cmd, opts = {}) => {
 
 const DRY_RUN = !!process.env.DRY_RUN;
 
-var count = 0;
+let count = 0;
 
 const examplesFolderEntries = fs.readdirSync(
   path.join(process.cwd(), "examples"),
@@ -21,7 +21,7 @@ const examplesFolderEntries = fs.readdirSync(
 
 const packageNames = [];
 
-for (let folder of examplesFolderEntries) {
+for (const folder of examplesFolderEntries) {
   if (!folder.isDirectory()) continue;
   const absolute = path.resolve(process.cwd(), "examples", folder.name);
 
@@ -41,7 +41,7 @@ for (let folder of examplesFolderEntries) {
   if (!packageJSON.name) continue;
   if (!packageJSON.name.startsWith("@bun-examples")) continue;
 
-  var version = "0.0.1";
+  let version = "0.0.1";
   try {
     const _versions = exec(`npm view ${packageJSON.name} versions --json`)
       .toString()
@@ -54,7 +54,7 @@ for (let folder of examplesFolderEntries) {
   } catch (exception) {
     console.error(exception);
   }
-  var retryCount = 5;
+  let retryCount = 5;
 
   // Never commit lockfiles
   try {
@@ -90,7 +90,7 @@ for (let folder of examplesFolderEntries) {
       JSON.stringify(packageJSON, null, 2)
     );
     try {
-      exec(`npm version patch --force --no-commit-hooks --no-git-tag-version`, {
+      exec("npm version patch --force --no-commit-hooks --no-git-tag-version", {
         cwd: absolute,
       });
 

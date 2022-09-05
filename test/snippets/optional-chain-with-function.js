@@ -3,7 +3,7 @@ export function test() {
     const multipleSecondaryValues = undefined;
     const ratings = ["123"];
 
-    var bar = multipleSecondaryValues?.map((value) => false);
+    let bar = multipleSecondaryValues?.map((value) => false);
     bar = bar?.multipleSecondaryValues?.map((value) => false);
     bar = bar?.bar?.multipleSecondaryValues?.map((value) => false);
     bar = {}?.bar?.multipleSecondaryValues?.map((value) => false);

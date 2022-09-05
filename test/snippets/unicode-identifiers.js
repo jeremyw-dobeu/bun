@@ -1,11 +1,11 @@
-var ε = 1e-6,
-  ε2 = ε * ε,
-  π = Math.PI,
-  τ = 2 * π,
-  τε = τ - ε,
-  halfπ = π / 2,
-  d3_radians = π / 180,
-  d3_degrees = 180 / π;
+const ε = 1e-6;
+const ε2 = ε * ε;
+const π = Math.PI;
+const τ = 2 * π;
+const τε = τ - ε;
+const halfπ = π / 2;
+const d3_radians = π / 180;
+const d3_degrees = 180 / π;
 
 export { d3_radians };
 

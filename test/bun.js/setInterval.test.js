@@ -1,8 +1,8 @@
 import { it, expect } from "bun:test";
 
 it("setInterval", async () => {
-  var counter = 0;
-  var start;
+  let counter = 0;
+  let start;
   const result = await new Promise((resolve, reject) => {
     start = performance.now();
 
@@ -20,7 +20,7 @@ it("setInterval", async () => {
 });
 
 it("clearInterval", async () => {
-  var called = false;
+  let called = false;
   const id = setInterval(() => {
     called = true;
     expect(false).toBe(true);

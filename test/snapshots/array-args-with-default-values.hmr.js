@@ -1,31 +1,33 @@
 import {
-__HMRClient as Bun
+  __HMRClient as Bun,
+  __FastRefreshModule as FastHMR,
+  __FastRefreshRuntime as FastRefresh,
 } from "http://localhost:8080/bun:wrap";
 Bun.activate(false);
-import {
-__FastRefreshModule as FastHMR
-} from "http://localhost:8080/bun:wrap";
-import {
-__FastRefreshRuntime as FastRefresh
-} from "http://localhost:8080/bun:wrap";
-var hmr = new FastHMR(3022324119, "array-args-with-default-values.js", FastRefresh), exports = hmr.exports;
-(hmr._load = function() {
-  var lines;
-  const data = () => lines.map(([a = null, b = null, c = null, d = null]) => ({
-    a,
-    b,
-    c,
-    d
-  }));
+const hmr = new FastHMR(
+  3022324119,
+  "array-args-with-default-values.js",
+  FastRefresh
+);
+const exports = hmr.exports;
+(hmr._load = function () {
+  let lines;
+  const data = () =>
+    lines.map(([a = null, b = null, c = null, d = null]) => ({
+      a,
+      b,
+      c,
+      d,
+    }));
   function test() {
     let ran = false;
     lines = [
       [undefined, undefined, undefined, undefined],
       [undefined, undefined, undefined, undefined],
       [undefined, undefined, undefined, undefined],
-      [undefined, undefined, undefined, undefined]
+      [undefined, undefined, undefined, undefined],
     ];
-    for (let foo of data()) {
+    for (const foo of data()) {
       console.assert(foo.a === null);
       console.assert(foo.b === null);
       console.assert(foo.c === null);
@@ -36,16 +38,14 @@ var hmr = new FastHMR(3022324119, "array-args-with-default-values.js", FastRefre
     testDone(import.meta.url);
   }
   hmr.exportAll({
-    test: () => test
+    test: () => test,
   });
 })();
-var $$hmr_test = hmr.exports.test;
-hmr._update = function(exports) {
+let $$hmr_test = hmr.exports.test;
+hmr._update = function (exports) {
   $$hmr_test = exports.test;
 };
 
-export {
-  $$hmr_test as test
-};
+export { $$hmr_test as test };
 
-//# sourceMappingURL=http://localhost:8080/array-args-with-default-values.js.map
+// # sourceMappingURL=http://localhost:8080/array-args-with-default-values.js.map

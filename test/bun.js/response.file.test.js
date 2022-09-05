@@ -15,7 +15,7 @@ it("Bun.file not found returns ENOENT", async () => {
 });
 
 it("Bun.write('out.txt', 'string')", async () => {
-  for (let erase of [true, false]) {
+  for (const erase of [true, false]) {
     if (erase) {
       try {
         fs.unlinkSync(path.join("/tmp", "out.txt"));
@@ -201,15 +201,15 @@ it("Bun.write('output.html', '')", async () => {
 
 // Since Bun.file is resolved lazily, this needs to specifically be checked
 it("Bun.write('output.html', HTMLRewriter.transform(Bun.file)))", async () => {
-  var rewriter = new HTMLRewriter();
+  const rewriter = new HTMLRewriter();
   rewriter.on("div", {
     element(element) {
       element.setInnerContent("<blink>it worked!</blink>", { html: true });
     },
   });
   await Bun.write("/tmp/html-rewriter.txt.js", "<div>hello</div>");
-  var input = new Response(Bun.file("/tmp/html-rewriter.txt.js"));
-  var output = rewriter.transform(input);
+  const input = new Response(Bun.file("/tmp/html-rewriter.txt.js"));
+  const output = rewriter.transform(input);
   const outpath = `/tmp/html-rewriter.${Date.now()}.html`;
   await Bun.write(outpath, output);
   expect(await Bun.file(outpath).text()).toBe(

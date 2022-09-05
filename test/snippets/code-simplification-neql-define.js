@@ -1,14 +1,14 @@
-var testFailed = false;
+let testFailed = false;
 const invariant = () => {
   testFailed = true;
 };
-var $$m = (arg) => {
-  var module = { exports: {} },
-    exports = module.exports;
+const $$m = (arg) => {
+  const module = { exports: {} };
+  const exports = module.exports;
   return arg(module, exports);
 };
-var size = 100,
-  ttl = 3600;
+const size = 100;
+const ttl = 3600;
 
 export var $f332019d = $$m(
   {
@@ -16,10 +16,10 @@ export var $f332019d = $$m(
       module,
       exports
     ) => {
-      var RelayQueryResponseCache = function () {
-        var foo = function RelayQueryResponseCache(_ref) {
-          var size = _ref.size,
-            ttl = _ref.ttl;
+      const RelayQueryResponseCache = function () {
+        const foo = function RelayQueryResponseCache(_ref) {
+          const size = _ref.size;
+          const ttl = _ref.ttl;
           !(size > 0)
             ? process.env.NODE_ENV !== "production"
               ? invariant(
@@ -48,7 +48,7 @@ export var $f332019d = $$m(
 );
 
 export function test() {
-  var foo = () => result;
+  const foo = () => result;
   //   $f332019d;
 
   if (testFailed) throw new Error("invariant should not be called");

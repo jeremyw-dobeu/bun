@@ -29,7 +29,7 @@ timings.sort();
 
 const frameTimesCount = timings.length;
 
-var frameTime = new Array(Math.floor(frameTimesCount / 2));
+const frameTime = new Array(Math.floor(frameTimesCount / 2));
 
 for (let i = 0; i < frameTime.length; i++) {
   const i1 = i * 2;

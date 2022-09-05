@@ -83,4 +83,4 @@ const fail = true;
 
 if (fail) throw new Error(`❌ browser test failed (${fail})`);
 
-console.log(`✅ bun.js test passed`);
+console.log("✅ bun.js test passed");

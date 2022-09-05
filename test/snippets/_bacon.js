@@ -1,1 +1,1 @@
-export let hello = true;
+export const hello = true;

@@ -51,7 +51,7 @@ describe("copyFileSync", () => {
     expect(tempdir.includes(mkdirSync(tempdir, { recursive: true }))).toBe(
       true
     );
-    var buffer = new Int32Array(128 * 1024);
+    const buffer = new Int32Array(128 * 1024);
     for (let i = 0; i < buffer.length; i++) {
       buffer[i] = i % 256;
     }
@@ -95,7 +95,7 @@ describe("mkdirSync", () => {
 it("readdirSync on import.meta.dir", () => {
   const dirs = readdirSync(import.meta.dir);
   expect(dirs.length > 0).toBe(true);
-  var match = false;
+  let match = false;
   gc(true);
   for (let i = 0; i < dirs.length; i++) {
     if (dirs[i] === import.meta.file) {
@@ -110,7 +110,7 @@ it("readdirSync on import.meta.dir with trailing slash", () => {
   const dirs = readdirSync(import.meta.dir + "/");
   expect(dirs.length > 0).toBe(true);
   // this file should exist in it
-  var match = false;
+  let match = false;
   for (let i = 0; i < dirs.length; i++) {
     if (dirs[i] === import.meta.file) {
       match = true;

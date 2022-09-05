@@ -21,7 +21,7 @@ describe("Bun.Transpiler", () => {
         code = "export default (" + code + ")";
       }
 
-      var out = transpiler.transformSync(code, "ts");
+      let out = transpiler.transformSync(code, "ts");
       if (autoExport && out.startsWith("export default ")) {
         out = out.substring("export default ".length);
       }
@@ -51,7 +51,7 @@ describe("Bun.Transpiler", () => {
       try {
         ts.parsed(code, false, false);
       } catch (er) {
-        var err = er;
+        let err = er;
         if (er instanceof AggregateError) {
           err = err.errors[0];
         }
@@ -141,22 +141,22 @@ describe("Bun.Transpiler", () => {
       x[x["y"] = 0] = "y";
     })(x || (x = {}));
   })(second = first.second || (first.second = {}));
-})(first || (first = {}))`
+})(first || (first = {}))`;
 
     it("exported inner namespace", () => {
       ts.expectPrinted_(input3, output3);
     });
 
-    const input4 = `export enum x { y }`
+    const input4 = "export enum x { y }";
     const output4 = `export var x;
 (function(x) {
   x[x["y"] = 0] = "y";
-})(x || (x = {}))`
+})(x || (x = {}))`;
 
     it("exported enum", () => {
       ts.expectPrinted_(input4, output4);
     });
-  })
+  });
 
   describe("exports.replace", () => {
     const transpiler = new Bun.Transpiler({
@@ -318,7 +318,7 @@ describe("Bun.Transpiler", () => {
   `;
 
   it("JSX", () => {
-    var bun = new Bun.Transpiler({
+    const bun = new Bun.Transpiler({
       loader: "jsx",
       define: {
         "process.env.NODE_ENV": JSON.stringify("development"),
@@ -516,14 +516,14 @@ export var ComponentThatHasSpreadCausesDeopt = jsx(Hello, {
   });
 
   it("require with a dynamic non-string expression", () => {
-    var nodeTranspiler = new Bun.Transpiler({ platform: "node" });
+    const nodeTranspiler = new Bun.Transpiler({ platform: "node" });
     expect(nodeTranspiler.transformSync("require('hi' + bar)")).toBe(
       'require("hi" + bar);\n'
     );
   });
 
   it("CommonJS", () => {
-    var nodeTranspiler = new Bun.Transpiler({ platform: "node" });
+    const nodeTranspiler = new Bun.Transpiler({ platform: "node" });
     expect(nodeTranspiler.transformSync("module.require('hi' + 123)")).toBe(
       'require("hi" + 123);\n'
     );
@@ -594,7 +594,7 @@ export var ComponentThatHasSpreadCausesDeopt = jsx(Hello, {
       code = "export default (" + code + ")";
     }
 
-    var out = transpiler_.transformSync(code, "js");
+    let out = transpiler_.transformSync(code, "js");
     if (autoExport && out.startsWith("export default ")) {
       out = out.substring("export default ".length);
     }
@@ -628,7 +628,7 @@ export var ComponentThatHasSpreadCausesDeopt = jsx(Hello, {
     try {
       parsed(code, false, false);
     } catch (er) {
-      var err = er;
+      let err = er;
       if (er instanceof AggregateError) {
         err = err.errors[0];
       }
@@ -747,46 +747,46 @@ export var ComponentThatHasSpreadCausesDeopt = jsx(Hello, {
 
     it("import assert", () => {
       expectPrinted_(
-        `import json from "./foo.json" assert { type: "json" };`,
-        `import json from "./foo.json"`
+        'import json from "./foo.json" assert { type: "json" };',
+        'import json from "./foo.json"'
       );
       expectPrinted_(
-        `import json from "./foo.json";`,
-        `import json from "./foo.json"`
+        'import json from "./foo.json";',
+        'import json from "./foo.json"'
       );
       expectPrinted_(
-        `import("./foo.json", { type: "json" });`,
-        `import("./foo.json")`
+        'import("./foo.json", { type: "json" });',
+        'import("./foo.json")'
       );
     });
 
     it("import with unicode escape", () => {
       expectPrinted_(
-        `import { name } from 'mod\\u1011';`,
-        `import {name} from "mod\\u1011"`
+        "import { name } from 'mod\\u1011';",
+        'import {name} from "mod\\u1011"'
       );
     });
 
     it("fold string addition", () => {
       expectPrinted_(
-        `export const foo = "a" + "b";`,
-        `export const foo = "ab"`
+        'export const foo = "a" + "b";',
+        'export const foo = "ab"'
       );
       expectPrinted_(
-        `export const foo = "F" + "0" + "F" + "0123456789" + "ABCDEF" + "0123456789ABCDEFF0123456789ABCDEF00" + "b";`,
-        `export const foo = "F0F0123456789ABCDEF0123456789ABCDEFF0123456789ABCDEF00b"`
+        'export const foo = "F" + "0" + "F" + "0123456789" + "ABCDEF" + "0123456789ABCDEFF0123456789ABCDEF00" + "b";',
+        'export const foo = "F0F0123456789ABCDEF0123456789ABCDEFF0123456789ABCDEF00b"'
       );
       expectPrinted_(
-        `export const foo = "a" + 1 + "b";`,
-        `export const foo = "a" + 1 + "b"`
+        'export const foo = "a" + 1 + "b";',
+        'export const foo = "a" + 1 + "b"'
       );
       expectPrinted_(
-        `export const foo = "a" + "b" + 1 + "b";`,
-        `export const foo = "ab" + 1 + "b"`
+        'export const foo = "a" + "b" + 1 + "b";',
+        'export const foo = "ab" + 1 + "b"'
       );
       expectPrinted_(
-        `export const foo = "a" + "b" + 1 + "b" + "c";`,
-        `export const foo = "ab" + 1 + "bc"`
+        'export const foo = "a" + "b" + 1 + "b" + "c";',
+        'export const foo = "ab" + 1 + "bc"'
       );
     });
 
@@ -797,7 +797,7 @@ export var ComponentThatHasSpreadCausesDeopt = jsx(Hello, {
     });
 
     it("pass objects to macros", () => {
-      var object = {
+      const object = {
         helloooooooo: {
           message: [12345],
         },
@@ -827,34 +827,34 @@ export var ComponentThatHasSpreadCausesDeopt = jsx(Hello, {
 
     it("rewrite string to length", () => {
       expectPrinted_(
-        `export const foo = "a".length + "b".length;`,
-        `export const foo = 1 + 1`
+        'export const foo = "a".length + "b".length;',
+        "export const foo = 1 + 1"
       );
       expectBunPrinted_(
-        `export const foo = "a".length + "b".length;`,
-        `export const foo = 2`
+        'export const foo = "a".length + "b".length;',
+        "export const foo = 2"
       );
     });
 
     describe("Bun.js", () => {
       it("require -> import.meta.require", () => {
         expectBunPrinted_(
-          `export const foo = require('bar.node')`,
-          `export const foo = import.meta.require("bar.node")`
+          "export const foo = require('bar.node')",
+          'export const foo = import.meta.require("bar.node")'
         );
       });
 
       it("require.resolve -> import.meta.resolveSync", () => {
         expectBunPrinted_(
-          `export const foo = require.resolve('bar.node')`,
-          `export const foo = import.meta.resolveSync("bar.node")`
+          "export const foo = require.resolve('bar.node')",
+          'export const foo = import.meta.resolveSync("bar.node")'
         );
       });
 
       it('require.resolve(path, {paths: ["blah"]}) -> import.meta.resolveSync', () => {
         expectBunPrinted_(
-          `export const foo = require.resolve('bar.node', {paths: ["blah"]})`,
-          `export const foo = import.meta.resolveSync("bar.node", { paths: ["blah"] })`
+          "export const foo = require.resolve('bar.node', {paths: [\"blah\"]})",
+          'export const foo = import.meta.resolveSync("bar.node", { paths: ["blah"] })'
         );
       });
     });
@@ -864,27 +864,27 @@ export var ComponentThatHasSpreadCausesDeopt = jsx(Hello, {
         // the module resolver & linker doesn't run with Bun.Transpiler
         // so in this test, it becomes the same path string
         expectPrinted_(
-          `export const foo = require.resolve('my-module')`,
-          `export const foo = "my-module"`
+          "export const foo = require.resolve('my-module')",
+          'export const foo = "my-module"'
         );
       });
     });
 
     it("define", () => {
       expectPrinted_(
-        `export default typeof user_undefined === 'undefined';`,
-        `export default true`
+        "export default typeof user_undefined === 'undefined';",
+        "export default true"
       );
       expectPrinted_(
-        `export default typeof user_undefined !== 'undefined';`,
-        `export default false`
+        "export default typeof user_undefined !== 'undefined';",
+        "export default false"
       );
 
       expectPrinted_(
-        `export default typeof user_undefined !== 'undefined';`,
-        `export default false`
+        "export default typeof user_undefined !== 'undefined';",
+        "export default false"
       );
-      expectPrinted_(`export default !user_undefined;`, `export default true`);
+      expectPrinted_("export default !user_undefined;", "export default true");
     });
 
     it("decls", () => {
@@ -1282,7 +1282,7 @@ export var ComponentThatHasSpreadCausesDeopt = jsx(Hello, {
   });
 
   it("type only exports", () => {
-    let { expectPrinted_, expectParseError } = ts;
+    const { expectPrinted_, expectParseError } = ts;
     expectPrinted_("export type {foo, bar as baz} from 'bar'", "");
     expectPrinted_("export type {foo, bar as baz}", "");
     expectPrinted_("export type {foo} from 'bar'; x", "x");
@@ -1359,7 +1359,7 @@ export var ComponentThatHasSpreadCausesDeopt = jsx(Hello, {
   });
 
   it("useDefineForConst TypeScript class initialization", () => {
-    var { expectPrinted_ } = ts;
+    const { expectPrinted_ } = ts;
     expectPrinted_(
       `
 class Foo {
@@ -1539,7 +1539,7 @@ class Foo {
       expectPrinted("'a' + 1", '"a" + 1');
       expectPrinted("x * 'a' + 'b'", 'x * "a" + "b"');
 
-      expectPrinted("'string' + `template`", `"stringtemplate"`);
+      expectPrinted("'string' + `template`", '"stringtemplate"');
 
       expectPrinted("`template` + 'string'", "`templatestring`");
 
@@ -1626,15 +1626,16 @@ class Foo {
     `;
       const out = transpiler.transformSync(dead);
 
-      for (let line of out.split("\n")) {
+      for (const line of out.split("\n")) {
         it(line, () => {
           if (line.includes("should_be_kept")) {
             expect(line.includes("TEST_OK")).toBe(true);
           }
 
           if (line.includes("should_be_false")) {
-            if (!line.includes("= false"))
+            if (!line.includes("= false")) {
               throw new Error(`Expected false in "${line}"`);
+            }
             expect(line.includes("= false")).toBe(true);
           }
 
@@ -1703,9 +1704,9 @@ class Foo {
       "import {bacon, createElement} from 'react';",
     ];
     describe("sync supports macros remap", () => {
-      for (let importLine of importLines) {
+      for (const importLine of importLines) {
         it(importLine, () => {
-          var thisCode = `
+          const thisCode = `
           ${importLine}
           
           export default bacon("Test failed", "Test passed");
@@ -1714,7 +1715,7 @@ class Foo {
           }
           
         `;
-          var out = transpiler.transformSync(thisCode);
+          const out = transpiler.transformSync(thisCode);
           try {
             expect(out.includes("Test failed")).toBe(false);
             expect(out.includes("Test passed")).toBe(true);

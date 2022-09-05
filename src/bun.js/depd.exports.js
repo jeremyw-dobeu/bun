@@ -7,13 +7,13 @@
  * MIT Licensed
  */
 
-var __create = Object.create;
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getProtoOf = Object.getPrototypeOf;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __commonJS = (cb, mod) =>
+const __create = Object.create;
+const __defProp = Object.defineProperty;
+const __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+const __getOwnPropNames = Object.getOwnPropertyNames;
+const __getProtoOf = Object.getPrototypeOf;
+const __hasOwnProp = Object.prototype.hasOwnProperty;
+const __commonJS = (cb, mod) =>
   function __require() {
     return (
       mod ||
@@ -21,18 +21,20 @@ var __commonJS = (cb, mod) =>
       mod.exports
     );
   };
-var __copyProps = (to, from, except, desc) => {
+const __copyProps = (to, from, except, desc) => {
   if ((from && typeof from === "object") || typeof from === "function") {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
+    for (const key of __getOwnPropNames(from)) {
+      if (!__hasOwnProp.call(to, key) && key !== except) {
         __defProp(to, key, {
           get: () => from[key],
           enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable,
         });
+      }
+    }
   }
   return to;
 };
-var __toESM = (mod, isNodeMode, target) => (
+const __toESM = (mod, isNodeMode, target) => (
   (target = mod != null ? __create(__getProtoOf(mod)) : {}),
   __copyProps(
     isNodeMode || !mod || !mod.__esModule
@@ -43,7 +45,7 @@ var __toESM = (mod, isNodeMode, target) => (
 );
 
 // node_modules/depd/lib/browser/index.js
-var require_browser = __commonJS({
+const require_browser = __commonJS({
   "node_modules/depd/lib/browser/index.js"(exports, module) {
     "use strict";
     module.exports = depd2;
@@ -71,7 +73,7 @@ var require_browser = __commonJS({
       if (!obj || (typeof obj !== "object" && typeof obj !== "function")) {
         throw new TypeError("argument obj must be object");
       }
-      var descriptor = Object.getOwnPropertyDescriptor(obj, prop);
+      const descriptor = Object.getOwnPropertyDescriptor(obj, prop);
       if (!descriptor) {
         throw new TypeError("must call property on owner object");
       }
@@ -83,8 +85,8 @@ var require_browser = __commonJS({
 });
 
 // bundle.js
-var import_depd = __toESM(require_browser());
-var bundle_default = import_depd.default;
+const import_depd = __toESM(require_browser());
+const bundle_default = import_depd.default;
 
 function depd(...args) {
   return args.length ? bundle_default(...args) : bundle_default;

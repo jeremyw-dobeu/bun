@@ -1,16 +1,16 @@
 const fs = require("fs");
 
-var count = 500;
+const count = 500;
 
-var saveStack = process.argv.includes("--save-stack") || false;
-var output = process.cwd() + "/output";
+const saveStack = process.argv.includes("--save-stack") || false;
+const output = process.cwd() + "/output";
 // fs.rmdirSync("output", { recursive: true });
 try {
   fs.mkdirSync(output, { recursive: true });
 } catch (e) {}
 
-for (var i = 0; i < count; i++) {
-  var file = output + "/file" + i + ".mjs";
+for (let i = 0; i < count; i++) {
+  const file = output + "/file" + i + ".mjs";
   fs.writeFileSync(
     file,
     new Array(Math.trunc(i * 0.25))
@@ -25,7 +25,7 @@ globalThis.counter++;
 `,
     "utf8"
   );
-  var file2 = output + "/file" + i + ".js";
+  const file2 = output + "/file" + i + ".js";
 
   fs.writeFileSync(
     file2,
@@ -71,53 +71,53 @@ fs.writeFileSync(
 
 fs.writeFileSync(
   import.meta.dir + "/import.mjs",
-  `${saveStack ? `globalThis.evaluationOrder = [];` : ""}
+  `${saveStack ? "globalThis.evaluationOrder = [];" : ""}
   globalThis.counter=0; globalThis.exportCounter = 0;
   console.time("import");
   const Foo = await import('${output}/file0.mjs');
   export const THE_END = Foo.THE_END;
   console.timeEnd("import");
-  ${saveStack ? `console.log(globalThis.evaluationOrder.join("\\n"));` : ""}
+  ${saveStack ? 'console.log(globalThis.evaluationOrder.join("\\n"));' : ""}
   console.log("Loaded", globalThis.counter, "files", "totaling", new Intl.NumberFormat().format(globalThis.exportCounter), 'exports');`,
   "utf8"
 );
 
 fs.writeFileSync(
   "meta.require.mjs",
-  `${saveStack ? `globalThis.evaluationOrder = [];` : ""}
+  `${saveStack ? "globalThis.evaluationOrder = [];" : ""}
   globalThis.counter=0; globalThis.exportCounter = 0;
 console.time("import.meta.require");
 const Foo = import.meta.require("${output}/file0.mjs");
 export const THE_END = Foo.THE_END;
 console.timeEnd("import.meta.require");
-${saveStack ? `console.log(globalThis.evaluationOrder.join("\\n"));` : ""}
+${saveStack ? 'console.log(globalThis.evaluationOrder.join("\\n"));' : ""}
 console.log("Loaded", globalThis.counter, "files", "totaling", new Intl.NumberFormat().format(globalThis.exportCounter), 'exports');`,
   "utf8"
 );
 
 fs.writeFileSync(
   "meta.require.cjs",
-  `${saveStack ? `globalThis.evaluationOrder = [];` : ""}
+  `${saveStack ? "globalThis.evaluationOrder = [];" : ""}
   globalThis.counter=0; globalThis.exportCounter = 0;
   await 1;
   console.time("import.meta.require");
   const Foo = import.meta.require("${output}/file0.js");
   export const THE_END = Foo.THE_END;
   console.timeEnd("import.meta.require");
-  ${saveStack ? `console.log(globalThis.evaluationOrder.join("\\n"));` : ""}
+  ${saveStack ? 'console.log(globalThis.evaluationOrder.join("\\n"));' : ""}
   console.log("Loaded", globalThis.counter, "files", "totaling", new Intl.NumberFormat().format(globalThis.exportCounter), 'exports');`,
   "utf8"
 );
 
 fs.writeFileSync(
   import.meta.dir + "/require.js",
-  `${saveStack ? `globalThis.evaluationOrder = [];` : ""}
+  `${saveStack ? "globalThis.evaluationOrder = [];" : ""}
   globalThis.counter=0; globalThis.exportCounter = 0;
   console.time("require");
   const Foo = require("${output}/file0.js");
   module.exports.THE_END = Foo.THE_END;
   console.timeEnd("require");
-  ${saveStack ? `console.log(globalThis.evaluationOrder.join("\\n"));` : ""}
+  ${saveStack ? 'console.log(globalThis.evaluationOrder.join("\\n"));' : ""}
   console.log("Loaded", globalThis.counter, "files", "totaling", new Intl.NumberFormat().format(globalThis.exportCounter), 'exports');
   `,
   "utf8"

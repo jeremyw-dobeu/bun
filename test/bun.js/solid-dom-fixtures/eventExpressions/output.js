@@ -1,9 +1,11 @@
-import { template as _$template } from "r-dom";
-import { delegateEvents as _$delegateEvents } from "r-dom";
-import { addEventListener as _$addEventListener } from "r-dom";
+import {
+  template as _$template,
+  delegateEvents as _$delegateEvents,
+  addEventListener as _$addEventListener,
+} from "r-dom";
 
-const _tmpl$ = /*#__PURE__*/ _$template(
-  `<div id="main"><button>Change Bound</button><button>Change Bound</button><button>Change Bound</button><button>Change Bound</button><button>Change Bound</button><button>Click Delegated</button><button>Click Delegated</button><button>Click Delegated</button><button>Click Delegated</button><button>Click Delegated</button><button>Click Listener</button><button>Click Capture</button></div>`,
+const _tmpl$ = /* #__PURE__ */ _$template(
+  '<div id="main"><button>Change Bound</button><button>Change Bound</button><button>Change Bound</button><button>Change Bound</button><button>Change Bound</button><button>Click Delegated</button><button>Click Delegated</button><button>Click Delegated</button><button>Click Delegated</button><button>Click Delegated</button><button>Click Listener</button><button>Click Capture</button></div>',
   26
 );
 
@@ -14,19 +16,19 @@ function hoisted1() {
 const hoisted2 = () => console.log("hoisted delegated");
 
 const template = (() => {
-  const _el$ = _tmpl$.cloneNode(true),
-    _el$2 = _el$.firstChild,
-    _el$3 = _el$2.nextSibling,
-    _el$4 = _el$3.nextSibling,
-    _el$5 = _el$4.nextSibling,
-    _el$6 = _el$5.nextSibling,
-    _el$7 = _el$6.nextSibling,
-    _el$8 = _el$7.nextSibling,
-    _el$9 = _el$8.nextSibling,
-    _el$10 = _el$9.nextSibling,
-    _el$11 = _el$10.nextSibling,
-    _el$12 = _el$11.nextSibling,
-    _el$13 = _el$12.nextSibling;
+  const _el$ = _tmpl$.cloneNode(true);
+  const _el$2 = _el$.firstChild;
+  const _el$3 = _el$2.nextSibling;
+  const _el$4 = _el$3.nextSibling;
+  const _el$5 = _el$4.nextSibling;
+  const _el$6 = _el$5.nextSibling;
+  const _el$7 = _el$6.nextSibling;
+  const _el$8 = _el$7.nextSibling;
+  const _el$9 = _el$8.nextSibling;
+  const _el$10 = _el$9.nextSibling;
+  const _el$11 = _el$10.nextSibling;
+  const _el$12 = _el$11.nextSibling;
+  const _el$13 = _el$12.nextSibling;
 
   _el$2.addEventListener("change", () => console.log("bound"));
 

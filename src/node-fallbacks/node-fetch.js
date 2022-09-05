@@ -1,4 +1,4 @@
-var fetchHandler = globalThis.fetch;
+let fetchHandler = globalThis.fetch;
 
 if ("Bun" in globalThis) {
   fetchHandler = Bun.fetch;

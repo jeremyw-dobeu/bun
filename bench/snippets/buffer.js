@@ -1,8 +1,8 @@
 // import { Buffer } from "buffer";
-var buf = new Buffer(1024);
-var view = new DataView(buf.buffer);
-var INTERVAL = 9999999;
-var time = (name, fn) => {
+const buf = new Buffer(1024);
+const view = new DataView(buf.buffer);
+const INTERVAL = 9999999;
+const time = (name, fn) => {
   for (let i = 0; i < INTERVAL; i++) fn();
 
   console.time(name.padEnd('Buffer.write(string, "latin1")'.length));

@@ -1,4 +1,4 @@
-var symbolFor = Symbol.for;
+const symbolFor = Symbol.for;
 
 const lazy = globalThis[symbolFor("Bun.lazy")];
 if (!lazy || typeof lazy !== "function") {
@@ -7,12 +7,12 @@ if (!lazy || typeof lazy !== "function") {
   );
 }
 
-var defineProperties = Object.defineProperties;
+const defineProperties = Object.defineProperties;
 
-var toStringTag = Symbol.toStringTag;
-var apply = Function.prototype.apply;
-var isArray = Array.isArray;
-var isTypedArray = ArrayBuffer.isView;
+const toStringTag = Symbol.toStringTag;
+const apply = Function.prototype.apply;
+const isArray = Array.isArray;
+const isTypedArray = ArrayBuffer.isView;
 export const constants = {
   SQLITE_OPEN_READONLY: 0x00000001 /* Ok for sqlite3_open_v2() */,
   SQLITE_OPEN_READWRITE: 0x00000002 /* Ok for sqlite3_open_v2() */,
@@ -41,10 +41,10 @@ export const constants = {
   SQLITE_PREPARE_NO_VTAB: 0x04,
 };
 
-var SQL;
-var _SQL;
+let SQL;
+let _SQL;
 
-var controllers;
+let controllers;
 
 export class Statement {
   constructor(raw) {
@@ -115,7 +115,7 @@ export class Statement {
 
   #get(...args) {
     if (args.length === 0) return this.#getNoArgs();
-    var arg0 = args[0];
+    const arg0 = args[0];
     // ["foo"] => ["foo"]
     // ("foo") => ["foo"]
     // (Uint8Array(1024)) => [Uint8Array]
@@ -128,7 +128,7 @@ export class Statement {
 
   #all(...args) {
     if (args.length === 0) return this.#allNoArgs();
-    var arg0 = args[0];
+    const arg0 = args[0];
     // ["foo"] => ["foo"]
     // ("foo") => ["foo"]
     // (Uint8Array(1024)) => [Uint8Array]
@@ -141,7 +141,7 @@ export class Statement {
 
   #values(...args) {
     if (args.length === 0) return this.#valuesNoArgs();
-    var arg0 = args[0];
+    const arg0 = args[0];
     // ["foo"] => ["foo"]
     // ("foo") => ["foo"]
     // (Uint8Array(1024)) => [Uint8Array]
@@ -154,7 +154,7 @@ export class Statement {
 
   #run(...args) {
     if (args.length === 0) return this.#runNoArgs();
-    var arg0 = args[0];
+    const arg0 = args[0];
 
     !isArray(arg0) && (!arg0 || typeof arg0 !== "object" || isTypedArray(arg0))
       ? this.#raw.run(args)
@@ -175,7 +175,7 @@ export class Statement {
   }
 }
 
-var cachedCount = symbolFor("Bun.Database.cache.count");
+const cachedCount = symbolFor("Bun.Database.cache.count");
 export class Database {
   constructor(filenameGiven, options) {
     if (typeof filenameGiven === "undefined") {
@@ -196,9 +196,9 @@ export class Database {
       );
     }
 
-    var filename =
+    const filename =
       typeof filenameGiven === "string" ? filenameGiven.trim() : ":memory:";
-    var flags = constants.SQLITE_OPEN_READWRITE | constants.SQLITE_OPEN_CREATE;
+    let flags = constants.SQLITE_OPEN_READWRITE | constants.SQLITE_OPEN_CREATE;
     if (typeof options === "object" && options) {
       flags = 0;
 
@@ -206,10 +206,11 @@ export class Database {
         flags = constants.SQLITE_OPEN_READONLY;
       }
 
-      if ("readOnly" in options)
+      if ("readOnly" in options) {
         throw new TypeError(
           'Misspelled option "readOnly" should be "readonly"'
         );
+      }
 
       if (options.create) {
         flags = constants.SQLITE_OPEN_READWRITE | constants.SQLITE_OPEN_CREATE;
@@ -281,8 +282,9 @@ export class Database {
     this.clearQueryCache();
     return SQL.close(this.#handle);
   }
+
   clearQueryCache() {
-    for (let item of this.#cachedQueriesValues) {
+    for (const item of this.#cachedQueriesValues) {
       item.finalize();
     }
     this.#cachedQueriesKeys.length = 0;
@@ -296,7 +298,7 @@ export class Database {
       return;
     }
 
-    var arg0 = params[0];
+    const arg0 = params[0];
     return !isArray(arg0) &&
       (!arg0 || typeof arg0 !== "object" || isTypedArray(arg0))
       ? SQL.run(this.#handle, query, params)
@@ -325,7 +327,7 @@ export class Database {
     }
 
     // this list should be pretty small
-    var index = this.#cachedQueriesLengths.indexOf(query.length);
+    let index = this.#cachedQueriesLengths.indexOf(query.length);
     while (index !== -1) {
       if (this.#cachedQueriesKeys[index] !== query) {
         index = this.#cachedQueriesLengths.indexOf(query.length, index + 1);
@@ -365,8 +367,9 @@ export class Database {
   // https://github.com/JoshuaWise/better-sqlite3/blob/master/lib/methods/transaction.js
   // thank you @JoshuaWise!
   transaction(fn, self) {
-    if (typeof fn !== "function")
+    if (typeof fn !== "function") {
       throw new TypeError("Expected first argument to be a function");
+    }
 
     const db = this;
     const controller = getController(db, self);

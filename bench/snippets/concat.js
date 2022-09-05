@@ -3,13 +3,13 @@ import { readFileSync } from "fs";
 import { allocUnsafe } from "bun";
 
 function polyfill(chunks) {
-  var size = 0;
+  let size = 0;
   for (const chunk of chunks) {
     size += chunk.byteLength;
   }
-  var buffer = new ArrayBuffer(size);
-  var view = new Uint8Array(buffer);
-  var offset = 0;
+  const buffer = new ArrayBuffer(size);
+  const view = new Uint8Array(buffer);
+  let offset = 0;
   for (const chunk of chunks) {
     view.set(chunk, offset);
     offset += chunk.byteLength;
@@ -18,13 +18,13 @@ function polyfill(chunks) {
 }
 
 function polyfillUninitialized(chunks) {
-  var size = 0;
+  let size = 0;
   for (const chunk of chunks) {
     size += chunk.byteLength;
   }
-  var view = allocUnsafe(size);
+  const view = allocUnsafe(size);
 
-  var offset = 0;
+  let offset = 0;
   for (const chunk of chunks) {
     view.set(chunk, offset);
     offset += chunk.byteLength;

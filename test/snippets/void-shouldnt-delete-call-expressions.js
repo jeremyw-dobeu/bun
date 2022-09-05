@@ -1,4 +1,4 @@
-var was_called = false;
+let was_called = false;
 function thisShouldBeCalled() {
   was_called = true;
 }

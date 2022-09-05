@@ -1,11 +1,11 @@
-var $$mod$ = Symbol.for;
-var __create = Object.create;
-var __descs = Object.getOwnPropertyDescriptors;
-var __defProp = Object.defineProperty;
-var __getProtoOf = Object.getPrototypeOf;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+const $$mod$ = Symbol.for;
+const __create = Object.create;
+const __descs = Object.getOwnPropertyDescriptors;
+const __defProp = Object.defineProperty;
+const __getProtoOf = Object.getPrototypeOf;
+const __hasOwnProp = Object.prototype.hasOwnProperty;
+const __getOwnPropNames = Object.getOwnPropertyNames;
+const __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 
 // We're disabling Object.freeze because it breaks CJS => ESM and can cause
 // issues with Suspense and other things that expect the CJS module namespace
@@ -26,13 +26,14 @@ export var __markAsModule = (target) =>
 
 // lazy require to prevent loading one icon from a design system
 export var $$lzy = (target, module, props) => {
-  for (let key in props) {
-    if (!__hasOwnProp.call(target, key))
+  for (const key in props) {
+    if (!__hasOwnProp.call(target, key)) {
       __defProp(target, key, {
         get: () => module()[props[key]],
         enumerable: true,
         configurable: true,
       });
+    }
   }
   return target;
 };
@@ -52,11 +53,11 @@ export var __toModule = (module) => {
   );
 };
 
-var tagSymbol = Symbol.for("CommonJSTransformed");
-var cjsRequireSymbol = Symbol.for("CommonJS");
+const tagSymbol = Symbol.for("CommonJSTransformed");
+const cjsRequireSymbol = Symbol.for("CommonJS");
 export var __commonJS = (cb, name) => {
-  var mod;
-  var has_run = false;
+  let mod;
+  let has_run = false;
 
   const requireFunction = function load() {
     if (has_run) {
@@ -142,13 +143,14 @@ export var __name = (target, name) => {
 // ESM export -> CJS export
 // except, writable incase something re-exports
 export var __export = (target, all) => {
-  for (var name in all)
+  for (var name in all) {
     __defProp(target, name, {
       get: all[name],
       enumerable: true,
       configurable: true,
       set: (newValue) => (all[name] = () => newValue),
     });
+  }
 };
 
 export var __exportValue = (target, all) => {
@@ -172,27 +174,30 @@ export var __exportDefault = (target, value) => {
 };
 
 export var __reExport = (target, module, desc) => {
-  if ((module && typeof module === "object") || typeof module === "function")
-    for (let key of __getOwnPropNames(module))
-      if (!__hasOwnProp.call(target, key) && key !== "default")
+  if ((module && typeof module === "object") || typeof module === "function") {
+    for (const key of __getOwnPropNames(module)) {
+      if (!__hasOwnProp.call(target, key) && key !== "default") {
         __defProp(target, key, {
           get: () => module[key],
           configurable: true,
           enumerable:
             !(desc = __getOwnPropDesc(module, key)) || desc.enumerable,
         });
+      }
+    }
+  }
   return target;
 };
 
 function hasAnyProps(obj) {
-  for (let key in obj) return true;
+  for (const key in obj) return true;
   return false;
 }
 
 function mergeDefaultProps(props, defaultProps) {
-  var result = __create(defaultProps, __descs(props));
+  const result = __create(defaultProps, __descs(props));
 
-  for (let key in defaultProps) {
+  for (const key in defaultProps) {
     if (result[key] !== undefined) continue;
 
     result[key] = defaultProps[key];

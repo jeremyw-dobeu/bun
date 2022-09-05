@@ -1,11 +1,11 @@
-var fileURLToPath;
+let fileURLToPath;
 
-var pathsFunction = function paths() {
+const pathsFunction = function paths() {
   return [];
 };
 
 export function createRequire(filename) {
-  var filenameString = filename;
+  let filenameString = filename;
   const isURL =
     typeof filename === "object" && filename && filename instanceof URL;
 
@@ -14,12 +14,12 @@ export function createRequire(filename) {
     filenameString = fileURLToPath(filename);
   }
 
-  var pathObject = {
+  const pathObject = {
     path: filenameString,
     resolveSync,
   };
-  var bunResolveSync = import.meta.resolveSync;
-  var realRequire = import.meta.require;
+  const bunResolveSync = import.meta.resolveSync;
+  const realRequire = import.meta.require;
 
   function resolveSync(id) {
     return arguments.length <= 1
@@ -27,7 +27,7 @@ export function createRequire(filename) {
       : bunResolveSync.call(pathObject, id, arguments[1]);
   }
 
-  var requireFunction = function require(id) {
+  const requireFunction = function require(id) {
     return realRequire.call(
       pathObject,
       bunResolveSync.call(pathObject, id, filenameString)
@@ -36,7 +36,7 @@ export function createRequire(filename) {
 
   requireFunction.resolve = function resolve(id, pathsArg) {
     if (arguments.length > 1 && pathsArg && typeof pathsArg === "object") {
-      var { paths } = pathsArg;
+      const { paths } = pathsArg;
       if (paths && Array.isArray(paths) && paths.length > 0) {
         return bunResolveSync.call(pathObject, id, paths[0]);
       }

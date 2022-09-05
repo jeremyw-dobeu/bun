@@ -4,15 +4,15 @@ const data = new TextEncoder().encode("Hello World!".repeat(9999));
 
 const compressed = await compress(data);
 
-bench(`roundtrip - "Hello World!".repeat(9999))`, async () => {
+bench('roundtrip - "Hello World!".repeat(9999))', async () => {
   await decompress(await compress(data));
 });
 
-bench(`gzip("Hello World!".repeat(9999)))`, async () => {
+bench('gzip("Hello World!".repeat(9999)))', async () => {
   await compress(data);
 });
 
-bench(`gunzip("Hello World!".repeat(9999)))`, async () => {
+bench('gunzip("Hello World!".repeat(9999)))', async () => {
   await decompress(compressed);
 });
 

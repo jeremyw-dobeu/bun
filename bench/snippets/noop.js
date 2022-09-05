@@ -1,6 +1,6 @@
 import { bench, run } from "mitata";
 
-var noop = globalThis[Symbol.for("Bun.lazy")]("noop");
+const noop = globalThis[Symbol.for("Bun.lazy")]("noop");
 
 bench("function", function () {
   noop.function();

@@ -38,7 +38,7 @@ const expected = [
   ],
 ];
 
-const newlinePreserved = `\n`;
+const newlinePreserved = "\n";
 
 export function test() {
   if (

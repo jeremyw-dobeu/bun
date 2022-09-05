@@ -1,4 +1,4 @@
-var _tmpl$1 = _template$(
+const _tmpl$1 = _template$(
   '<div id="main"><button>Change Bound</button><button>Change Bound</button><button>Change Bound</button><button>Change Bound</button><button>Change Bound</button><button>Click Delegated</button><button>Click Delegated</button><button>Click Delegated</button><button>Click Delegated</button><button>Click Delegated</button><button>Click Listener</button><button>Click Capture</button></div>',
   26
 );
@@ -7,18 +7,18 @@ function hoisted1() {
 }
 const hoisted2 = () => console.log("hoisted delegated");
 const template = () => {
-  var _el = _tmpl.cloneNode(true),
-    _el$1 = _el.firstChild,
-    _el$2 = _el$1.nextSibling,
-    _el$3 = _el$2.nextSibling,
-    _el$4 = _el$3.nextSibling,
-    _el$5 = _el$4.nextSibling,
-    _el$6 = _el$5.nextSibling,
-    _el$7 = _el$6.nextSibling,
-    _el$8 = _el$7.nextSibling,
-    _el$9 = _el$8.nextSibling,
-    _el$10 = _el$9.nextSibling,
-    _el$11 = _el$10.nextSibling;
+  const _el = _tmpl.cloneNode(true);
+  const _el$1 = _el.firstChild;
+  const _el$2 = _el$1.nextSibling;
+  const _el$3 = _el$2.nextSibling;
+  const _el$4 = _el$3.nextSibling;
+  const _el$5 = _el$4.nextSibling;
+  const _el$6 = _el$5.nextSibling;
+  const _el$7 = _el$6.nextSibling;
+  const _el$8 = _el$7.nextSibling;
+  const _el$9 = _el$8.nextSibling;
+  const _el$10 = _el$9.nextSibling;
+  const _el$11 = _el$10.nextSibling;
   effect(() => {
     return setAttribute(_el, "onchange", () => console.log("bound"));
   });

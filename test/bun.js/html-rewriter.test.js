@@ -1,7 +1,7 @@
 import { describe, it, expect } from "bun:test";
 import { gcTick } from "./gc";
 
-var setTimeoutAsync = (fn, delay) => {
+const setTimeoutAsync = (fn, delay) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       try {
@@ -31,33 +31,33 @@ describe("HTMLRewriter", () => {
   });
 
   it("supports element handlers", async () => {
-    var rewriter = new HTMLRewriter();
+    const rewriter = new HTMLRewriter();
     rewriter.on("div", {
       element(element) {
         element.setInnerContent("<blink>it worked!</blink>", { html: true });
       },
     });
-    var input = new Response("<div>hello</div>");
-    var output = rewriter.transform(input);
+    const input = new Response("<div>hello</div>");
+    const output = rewriter.transform(input);
     expect(await output.text()).toBe("<div><blink>it worked!</blink></div>");
   });
 
   it("(from file) supports element handlers", async () => {
-    var rewriter = new HTMLRewriter();
+    const rewriter = new HTMLRewriter();
     rewriter.on("div", {
       element(element) {
         element.setInnerContent("<blink>it worked!</blink>", { html: true });
       },
     });
     await Bun.write("/tmp/html-rewriter.txt.js", "<div>hello</div>");
-    var input = new Response(Bun.file("/tmp/html-rewriter.txt.js"));
-    var output = rewriter.transform(input);
+    const input = new Response(Bun.file("/tmp/html-rewriter.txt.js"));
+    const output = rewriter.transform(input);
     expect(await output.text()).toBe("<div><blink>it worked!</blink></div>");
   });
 
   it("supports attribute iterator", async () => {
-    var rewriter = new HTMLRewriter();
-    var expected = [
+    const rewriter = new HTMLRewriter();
+    const expected = [
       ["first", ""],
       ["second", "alrihgt"],
       ["third", "123"],
@@ -66,17 +66,17 @@ describe("HTMLRewriter", () => {
     ];
     rewriter.on("div", {
       element(element2) {
-        for (let attr of element2.attributes) {
+        for (const attr of element2.attributes) {
           const stack = expected.shift();
           expect(stack[0]).toBe(attr[0]);
           expect(stack[1]).toBe(attr[1]);
         }
       },
     });
-    var input = new Response(
+    const input = new Response(
       '<div first second="alrihgt" third="123" fourth=5 fifth=helloooo>hello</div>'
     );
-    var output = rewriter.transform(input);
+    const output = rewriter.transform(input);
     expect(await output.text()).toBe(
       '<div first second="alrihgt" third="123" fourth=5 fifth=helloooo>hello</div>'
     );

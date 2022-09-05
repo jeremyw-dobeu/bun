@@ -15,8 +15,8 @@ const bunFlags = [
 ].filter(Boolean);
 const bunExec = process.env.BUN_BIN || "bun";
 
-var bunProcess;
-var waitSpawn;
+let bunProcess;
+let waitSpawn;
 if (!USE_EXISTING_PROCESS) {
   bunProcess = child_process.spawn(bunExec, bunFlags, {
     cwd: snippetsDir,
@@ -31,7 +31,7 @@ if (!USE_EXISTING_PROCESS) {
   console.log("$", bunExec, bunFlags.join(" "));
   bunProcess.stderr.pipe(process.stderr);
   bunProcess.stdout.pipe(process.stdout);
-  var rejecter;
+  let rejecter;
   bunProcess.once("error", (err) => {
     console.error("❌ bun error", err);
     process.exit(1);
@@ -100,10 +100,10 @@ async function main() {
   let allTestsPassed = true;
 
   if (waitSpawn) await waitSpawn;
-  var canRetry = true;
+  let canRetry = true;
 
   async function runPage(key) {
-    var page;
+    let page;
     try {
       page = await browser.newPage();
       if (USE_EXISTING_PROCESS) {
@@ -120,7 +120,7 @@ async function main() {
         console.log(`❌ ${error}`);
         allTestsPassed = false;
       });
-      let testDone = new Promise((resolve) => {
+      const testDone = new Promise((resolve) => {
         page.exposeFunction("testDone", resolve);
       });
       try {
@@ -165,7 +165,7 @@ async function main() {
   const tests = require("./snippets.json");
   tests.reverse();
 
-  for (let test of tests) {
+  for (const test of tests) {
     await runPage(test);
   }
 
@@ -173,10 +173,10 @@ async function main() {
     bunProcess && bunProcess.kill(0);
 
     if (!allTestsPassed) {
-      console.error(`❌ browser test failed`);
+      console.error("❌ browser test failed");
       process.exit(1);
     } else {
-      console.log(`✅ browser test passed`);
+      console.log("✅ browser test passed");
       bunProcess && bunProcess.kill(0);
       process.exit(0);
     }

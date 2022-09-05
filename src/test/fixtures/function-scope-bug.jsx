@@ -1,8 +1,8 @@
-var Button = () => {
+const Button = () => {
   return <div className="button">Button!</div>;
 };
 
-var Bar = () => {
+const Bar = () => {
   return (
     <div prop={1}>
       Plain text
@@ -18,7 +18,7 @@ var Bar = () => {
 // The bug happened due to incorrectly modifying scopes_in_order
 // The fix was using tombstoning instead of deleting
 // The fix also resolved some performance issues.
-var Baz = () => {
+const Baz = () => {
   return (
     <div prop={1}>
       Plain text

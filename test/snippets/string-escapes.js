@@ -1,10 +1,10 @@
 // To update this, copy paste the following into the console of the browser
 // ------------------------------------------------------------
-var tab = "\t";
-var シ = "wow";
+const tab = "\t";
+const シ = "wow";
 var f = "";
 var f = "\u2087";
-var obj = {
+const obj = {
   "\r\n": "\r\n",
   "\n": "\n",
   "\t": "\t",
@@ -20,7 +20,7 @@ var obj = {
   "☺": "☺",
   シ: "シ",
   "👋": "👋",
-  f: f,
+  f,
   "☹": "☹",
   "☻": "☻",
   children: 123,

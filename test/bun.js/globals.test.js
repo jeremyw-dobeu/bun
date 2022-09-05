@@ -12,9 +12,9 @@ it("extendable", () => {
     Bun.Transpiler,
   ];
   // None of these should error
-  for (let Class of classes) {
-    var Foo = class extends Class {};
-    var bar = new Foo();
+  for (const Class of classes) {
+    const Foo = class extends Class {};
+    const bar = new Foo();
     expect(bar instanceof Class).toBe(true);
     expect(!!Class.prototype).toBe(true);
     expect(typeof Class.prototype).toBe("object");
@@ -33,7 +33,7 @@ it("writable", () => {
     // ["HTMLRewriter", HTMLRewriter],
     // ["Transpiler", Bun.Transpiler],
   ];
-  for (let [name, Class] of classes) {
+  for (const [name, Class] of classes) {
     globalThis[name] = 123;
     expect(globalThis[name]).toBe(123);
     globalThis[name] = Class;
@@ -52,7 +52,7 @@ it("name", () => {
     ["HTMLRewriter", HTMLRewriter],
     ["Transpiler", Bun.Transpiler],
   ];
-  for (let [name, Class] of classes) {
+  for (const [name, Class] of classes) {
     expect(Class.name).toBe(name);
   }
 });

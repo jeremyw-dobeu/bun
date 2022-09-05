@@ -23,7 +23,7 @@ it("exists globally", () => {
 });
 
 it("ReadableStream (readMany)", async () => {
-  var stream = new ReadableStream({
+  const stream = new ReadableStream({
     pull(controller) {
       controller.enqueue("hello");
       controller.enqueue("world");
@@ -31,14 +31,14 @@ it("ReadableStream (readMany)", async () => {
     },
     cancel() {},
   });
-  var reader = stream.getReader();
+  const reader = stream.getReader();
   const chunk = await reader.readMany();
   expect(chunk.value.join("")).toBe("helloworld");
   expect((await reader.read()).done).toBe(true);
 });
 
 it("ReadableStream (direct)", async () => {
-  var stream = new ReadableStream({
+  const stream = new ReadableStream({
     pull(controller) {
       controller.write("hello");
       controller.write("world");
@@ -47,7 +47,7 @@ it("ReadableStream (direct)", async () => {
     cancel() {},
     type: "direct",
   });
-  var reader = stream.getReader();
+  const reader = stream.getReader();
   const chunk = await reader.read();
   expect(chunk.value.join("")).toBe(Buffer.from("helloworld").join(""));
   expect((await reader.read()).done).toBe(true);
@@ -55,7 +55,7 @@ it("ReadableStream (direct)", async () => {
 });
 
 it("ReadableStream (bytes)", async () => {
-  var stream = new ReadableStream({
+  const stream = new ReadableStream({
     start(controller) {
       controller.enqueue(Buffer.from("abdefgh"));
     },
@@ -70,7 +70,7 @@ it("ReadableStream (bytes)", async () => {
 });
 
 it("ReadableStream (default)", async () => {
-  var stream = new ReadableStream({
+  const stream = new ReadableStream({
     start(controller) {
       controller.enqueue(Buffer.from("abdefgh"));
       controller.close();
@@ -85,10 +85,10 @@ it("ReadableStream (default)", async () => {
 });
 
 it("readableStreamToArray", async () => {
-  var queue = [Buffer.from("abdefgh")];
-  var stream = new ReadableStream({
+  const queue = [Buffer.from("abdefgh")];
+  const stream = new ReadableStream({
     pull(controller) {
-      var chunk = queue.shift();
+      const chunk = queue.shift();
       if (chunk) {
         controller.enqueue(chunk);
       } else {
@@ -105,10 +105,10 @@ it("readableStreamToArray", async () => {
 });
 
 it("readableStreamToArrayBuffer (bytes)", async () => {
-  var queue = [Buffer.from("abdefgh")];
-  var stream = new ReadableStream({
+  const queue = [Buffer.from("abdefgh")];
+  const stream = new ReadableStream({
     pull(controller) {
-      var chunk = queue.shift();
+      const chunk = queue.shift();
       if (chunk) {
         controller.enqueue(chunk);
       } else {
@@ -123,10 +123,10 @@ it("readableStreamToArrayBuffer (bytes)", async () => {
 });
 
 it("readableStreamToArrayBuffer (default)", async () => {
-  var queue = [Buffer.from("abdefgh")];
-  var stream = new ReadableStream({
+  const queue = [Buffer.from("abdefgh")];
+  const stream = new ReadableStream({
     pull(controller) {
-      var chunk = queue.shift();
+      const chunk = queue.shift();
       if (chunk) {
         controller.enqueue(chunk);
       } else {
@@ -141,9 +141,9 @@ it("readableStreamToArrayBuffer (default)", async () => {
 });
 
 it("ReadableStream for Blob", async () => {
-  var blob = new Blob(["abdefgh", "ijklmnop"]);
+  const blob = new Blob(["abdefgh", "ijklmnop"]);
   expect(await blob.text()).toBe("abdefghijklmnop");
-  var stream;
+  let stream;
   try {
     stream = blob.stream();
     stream = blob.stream();
@@ -152,7 +152,7 @@ it("ReadableStream for Blob", async () => {
     console.error(e.stack);
   }
   const chunks = [];
-  var reader;
+  let reader;
   reader = stream.getReader();
 
   while (true) {
@@ -173,10 +173,10 @@ it("ReadableStream for Blob", async () => {
 });
 
 it("ReadableStream for File", async () => {
-  var blob = file(import.meta.dir + "/fetch.js.txt");
-  var stream = blob.stream(24);
+  const blob = file(import.meta.dir + "/fetch.js.txt");
+  let stream = blob.stream(24);
   const chunks = [];
-  var reader = stream.getReader();
+  let reader = stream.getReader();
   stream = undefined;
   while (true) {
     const chunk = await reader.read();
@@ -195,7 +195,7 @@ it("ReadableStream for File", async () => {
 
 it("ReadableStream for File errors", async () => {
   try {
-    var blob = file(import.meta.dir + "/fetch.js.txt.notfound");
+    const blob = file(import.meta.dir + "/fetch.js.txt.notfound");
     blob.stream().getReader();
     throw new Error("should not reach here");
   } catch (e) {
@@ -205,10 +205,10 @@ it("ReadableStream for File errors", async () => {
 });
 
 it("ReadableStream for empty blob closes immediately", async () => {
-  var blob = new Blob([]);
-  var stream = blob.stream();
+  const blob = new Blob([]);
+  const stream = blob.stream();
   const chunks = [];
-  var reader = stream.getReader();
+  const reader = stream.getReader();
   while (true) {
     const chunk = await reader.read();
     if (chunk.done) break;
@@ -220,15 +220,15 @@ it("ReadableStream for empty blob closes immediately", async () => {
 
 it("ReadableStream for empty file closes immediately", async () => {
   writeFileSync("/tmp/bun-empty-file-123456", "");
-  var blob = file("/tmp/bun-empty-file-123456");
-  var stream;
+  const blob = file("/tmp/bun-empty-file-123456");
+  let stream;
   try {
     stream = blob.stream();
   } catch (e) {
     console.error(e.stack);
   }
   const chunks = [];
-  var reader = stream.getReader();
+  const reader = stream.getReader();
   while (true) {
     const chunk = await reader.read();
     if (chunk.done) break;
@@ -239,10 +239,10 @@ it("ReadableStream for empty file closes immediately", async () => {
 });
 
 it("new Response(stream).arrayBuffer() (bytes)", async () => {
-  var queue = [Buffer.from("abdefgh")];
-  var stream = new ReadableStream({
+  const queue = [Buffer.from("abdefgh")];
+  const stream = new ReadableStream({
     pull(controller) {
-      var chunk = queue.shift();
+      const chunk = queue.shift();
       if (chunk) {
         controller.enqueue(chunk);
       } else {
@@ -257,10 +257,10 @@ it("new Response(stream).arrayBuffer() (bytes)", async () => {
 });
 
 it("new Response(stream).arrayBuffer() (default)", async () => {
-  var queue = [Buffer.from("abdefgh")];
-  var stream = new ReadableStream({
+  const queue = [Buffer.from("abdefgh")];
+  const stream = new ReadableStream({
     pull(controller) {
-      var chunk = queue.shift();
+      const chunk = queue.shift();
       if (chunk) {
         controller.enqueue(chunk);
       } else {
@@ -274,10 +274,10 @@ it("new Response(stream).arrayBuffer() (default)", async () => {
 });
 
 it("new Response(stream).text() (default)", async () => {
-  var queue = [Buffer.from("abdefgh")];
-  var stream = new ReadableStream({
+  const queue = [Buffer.from("abdefgh")];
+  const stream = new ReadableStream({
     pull(controller) {
-      var chunk = queue.shift();
+      const chunk = queue.shift();
       if (chunk) {
         controller.enqueue(chunk);
       } else {
@@ -291,10 +291,10 @@ it("new Response(stream).text() (default)", async () => {
 });
 
 it("new Response(stream).json() (default)", async () => {
-  var queue = [Buffer.from(JSON.stringify({ hello: true }))];
-  var stream = new ReadableStream({
+  const queue = [Buffer.from(JSON.stringify({ hello: true }))];
+  const stream = new ReadableStream({
     pull(controller) {
-      var chunk = queue.shift();
+      const chunk = queue.shift();
       if (chunk) {
         controller.enqueue(chunk);
       } else {
@@ -308,10 +308,10 @@ it("new Response(stream).json() (default)", async () => {
 });
 
 it("new Response(stream).blob() (default)", async () => {
-  var queue = [Buffer.from(JSON.stringify({ hello: true }))];
-  var stream = new ReadableStream({
+  const queue = [Buffer.from(JSON.stringify({ hello: true }))];
+  const stream = new ReadableStream({
     pull(controller) {
-      var chunk = queue.shift();
+      const chunk = queue.shift();
       if (chunk) {
         controller.enqueue(chunk);
       } else {
@@ -326,8 +326,8 @@ it("new Response(stream).blob() (default)", async () => {
 });
 
 it("Blob.stream() -> new Response(stream).text()", async () => {
-  var blob = new Blob(["abdefgh"]);
-  var stream = blob.stream();
+  const blob = new Blob(["abdefgh"]);
+  const stream = blob.stream();
   const text = await new Response(stream).text();
   expect(text).toBe("abdefgh");
 });

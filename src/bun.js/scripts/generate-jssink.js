@@ -213,8 +213,8 @@ JSObject* createJSSinkControllerPrototype(JSC::VM& vm, JSC::JSGlobalObject* glob
 Structure* createJSSinkControllerStructure(JSC::VM& vm, JSC::JSGlobalObject* globalObject, WebCore::SinkID sinkID);
 } // namespace WebCore
 `;
-  var templ = outer;
-  for (let name of classes) {
+  let templ = outer;
+  for (const name of classes) {
     templ += classTemplate(name) + "\n";
   }
   templ += bottom;
@@ -314,10 +314,10 @@ JSC_DEFINE_HOST_FUNCTION(functionStartDirectStream, (JSC::JSGlobalObject * lexic
     JSC::JSFunction *onCloseFunction = JSC::jsDynamicCast<JSC::JSFunction*>(onClose);
 
 `;
-  var templ = head;
+  let templ = head;
 
-  var isFirst = true;
-  for (let name of classes) {
+  let isFirst = true;
+  for (const name of classes) {
     const {
       className,
       controller,
@@ -352,7 +352,7 @@ JSC_DEFINE_HOST_FUNCTION(functionStartDirectStream, (JSC::JSGlobalObject * lexic
 }
 `;
 
-  for (let name of classes) {
+  for (const name of classes) {
     const {
       className,
       controller,
@@ -452,7 +452,7 @@ JSC_DEFINE_HOST_FUNCTION(${name}__doClose, (JSC::JSGlobalObject * lexicalGlobalO
 #include "JSSinkLookupTable.h"
   `;
 
-  for (let name of classes) {
+  for (const name of classes) {
     const {
       className,
       controller,
@@ -513,7 +513,7 @@ JSC_DEFINE_HOST_FUNCTION(${name}__doClose, (JSC::JSGlobalObject * lexicalGlobalO
 
 `;
 
-  for (let name of classes) {
+  for (const name of classes) {
     const {
       className,
       controller,
@@ -778,7 +778,7 @@ void ${controller}::destroy(JSCell* cell)
   {
       switch (sinkID) {
     `;
-  for (let name of classes) {
+  for (const name of classes) {
     templ += `
     case ${name}:
         return JS${name}Prototype::create(vm, globalObject, JS${name}Prototype::createStructure(vm, globalObject, globalObject->objectPrototype()));
@@ -795,7 +795,7 @@ JSObject* createJSSinkControllerPrototype(JSC::VM& vm, JSC::JSGlobalObject* glob
 {
     switch (sinkID) {
   `;
-  for (let name of classes) {
+  for (const name of classes) {
     const { controllerPrototypeName } = names(name);
     templ += `
   case ${name}:
@@ -813,7 +813,7 @@ Structure* createJSSinkControllerStructure(JSC::VM& vm, JSC::JSGlobalObject* glo
 {
     switch (sinkID) {
   `;
-  for (let name of classes) {
+  for (const name of classes) {
     templ += `
   case ${name}: {
     auto* prototype = createJSSinkControllerPrototype(vm, globalObject, sinkID);
@@ -829,7 +829,7 @@ default:
 
   templ += footer;
 
-  for (let name of classes) {
+  for (const name of classes) {
     const {
       className,
       controller,

@@ -1,10 +1,12 @@
-import { template as _$template } from "r-dom";
-import { effect as _$effect } from "r-dom";
-import { createComponent as _$createComponent } from "r-dom";
-import { memo as _$memo } from "r-dom";
-import { insert as _$insert } from "r-dom";
+import {
+  template as _$template,
+  effect as _$effect,
+  createComponent as _$createComponent,
+  memo as _$memo,
+  insert as _$insert,
+} from "r-dom";
 
-const _tmpl$ = /*#__PURE__*/ _$template(`<div></div>`, 2);
+const _tmpl$ = /* #__PURE__ */ _$template("<div></div>", 2);
 
 const template1 = (() => {
   const _el$ = _tmpl$.cloneNode(true);

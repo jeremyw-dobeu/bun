@@ -1,6 +1,6 @@
 if (process.env.NODE_ENV === "production") {
   var foo;
-  var bar = 1;
+  const bar = 1;
 } else {
   console.log("hi");
 }

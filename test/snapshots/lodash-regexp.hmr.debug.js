@@ -1,22 +1,17 @@
 import {
-__require as require
+  __require as require,
+  __HMRClient as Bun,
+  __FastRefreshModule as FastHMR,
+  __FastRefreshRuntime as FastRefresh,
 } from "http://localhost:8080/bun:wrap";
-import {
-__HMRClient as Bun
-} from "http://localhost:8080/bun:wrap";
-Bun.activate(true);
 
-import {
-__FastRefreshModule as FastHMR
-} from "http://localhost:8080/bun:wrap";
-import {
-__FastRefreshRuntime as FastRefresh
-} from "http://localhost:8080/bun:wrap";
 import * as $60f52dc2 from "http://localhost:8080/node_modules/lodash/lodash.js";
-var { shuffle} = require($60f52dc2);
-var hmr = new FastHMR(2158065009, "lodash-regexp.js", FastRefresh), exports = hmr.exports;
+Bun.activate(true);
+const { shuffle } = require($60f52dc2);
+const hmr = new FastHMR(2158065009, "lodash-regexp.js", FastRefresh);
+const exports = hmr.exports;
 
-(hmr._load = function() {
+(hmr._load = function () {
   function test() {
     const foo = [1, 2, 3, 4, 6];
     const bar = shuffle(foo);
@@ -24,7 +19,7 @@ var hmr = new FastHMR(2158065009, "lodash-regexp.js", FastRefresh), exports = hm
     console.assert(bar.length === foo.length);
     bar.sort();
     foo.sort();
-    for (let i = 0;i < bar.length; i++) {
+    for (let i = 0; i < bar.length; i++) {
       console.assert(bar[i] === foo[i], "expected " + i + " to be " + foo[i]);
       console.assert(typeof bar[i] === "number");
       console.assert(typeof foo[i] === "number");
@@ -32,16 +27,14 @@ var hmr = new FastHMR(2158065009, "lodash-regexp.js", FastRefresh), exports = hm
     return testDone(import.meta.url);
   }
   hmr.exportAll({
-    test: () => test
+    test: () => test,
   });
 })();
-var $$hmr_test = hmr.exports.test;
-hmr._update = function(exports) {
+let $$hmr_test = hmr.exports.test;
+hmr._update = function (exports) {
   $$hmr_test = exports.test;
 };
 
-export {
-  $$hmr_test as test
-};
+export { $$hmr_test as test };
 
-//# sourceMappingURL=http://localhost:8080/lodash-regexp.js.map
+// # sourceMappingURL=http://localhost:8080/lodash-regexp.js.map

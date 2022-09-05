@@ -6,11 +6,12 @@ class BunWebSocket extends globalThis.WebSocket {
     super(url, ...args);
     this.#wrappedHandlers = new WeakMap();
   }
+
   #wrappedHandlers = new WeakMap();
 
   on(event, callback) {
     if (event === "message") {
-      var handler = ({ data }) => {
+      const handler = ({ data }) => {
         try {
           callback(data);
         } catch (e) {
@@ -27,7 +28,7 @@ class BunWebSocket extends globalThis.WebSocket {
 
   once(event, callback) {
     if (event === "message") {
-      var handler = ({ data }) => {
+      const handler = ({ data }) => {
         try {
           callback(data);
         } catch (e) {
@@ -51,7 +52,7 @@ class BunWebSocket extends globalThis.WebSocket {
   }
 
   off(event, callback) {
-    var wrapped = this.#wrappedHandlers.get(callback);
+    const wrapped = this.#wrappedHandlers.get(callback);
     if (wrapped) {
       this.removeEventListener(event, wrapped);
       this.#wrappedHandlers.delete(callback);
@@ -62,25 +63,25 @@ class BunWebSocket extends globalThis.WebSocket {
 }
 
 BunWebSocket.WebSocket = BunWebSocket;
-var WebSocketServer = (BunWebSocket.WebSocketServer = class WebSocketServer {
+const WebSocketServer = (BunWebSocket.WebSocketServer = class WebSocketServer {
   constructor() {
     throw new Error("Not implemented yet!");
   }
 });
 
-var Sender = (BunWebSocket.Sender = class Sender {
+const Sender = (BunWebSocket.Sender = class Sender {
   constructor() {
     throw new Error("Not supported in Bun");
   }
 });
 
-var Receiver = (BunWebSocket.Receiver = class Receiver {
+const Receiver = (BunWebSocket.Receiver = class Receiver {
   constructor() {
     throw new Error("Not supported in Bun");
   }
 });
 
-var createWebSocketStream = (BunWebSocket.createWebSocketStream = function (
+const createWebSocketStream = (BunWebSocket.createWebSocketStream = function (
   ws
 ) {
   throw new Error("Not supported in Bun");

@@ -1,11 +1,11 @@
-var ε = 0.000001;
-var ε2 = ε * ε;
-var π = Math.PI;
-var τ = 2 * π;
-var τε = τ - ε;
-var halfπ = π / 2;
-var d3_radians = π / 180;
-var d3_degrees = 180 / π;
+const ε = 0.000001;
+const ε2 = ε * ε;
+const π = Math.PI;
+const τ = 2 * π;
+const τε = τ - ε;
+const halfπ = π / 2;
+const d3_radians = π / 180;
+const d3_degrees = 180 / π;
 
 export { d3_radians };
 export function test() {
@@ -13,4 +13,4 @@ export function test() {
   return testDone(import.meta.url);
 }
 
-//# sourceMappingURL=http://localhost:8080/unicode-identifiers.js.map
+// # sourceMappingURL=http://localhost:8080/unicode-identifiers.js.map

@@ -15,7 +15,7 @@ function bound(obj) {
     delimiter: obj.delimiter,
   };
 }
-var path = bound(Bun._Path());
+const path = bound(Bun._Path());
 path.win32 = win32;
 path.posix = posix;
 export var posix = bound(Bun._Path(false));

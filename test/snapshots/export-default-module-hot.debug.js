@@ -3,4 +3,4 @@ export function test() {
   testDone(import.meta.url);
 }
 
-//# sourceMappingURL=http://localhost:8080/export-default-module-hot.js.map
+// # sourceMappingURL=http://localhost:8080/export-default-module-hot.js.map

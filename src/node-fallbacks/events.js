@@ -21,15 +21,15 @@
 
 "use strict";
 
-var R = typeof Reflect === "object" ? Reflect : null;
-var ReflectApply =
+const R = typeof Reflect === "object" ? Reflect : null;
+const ReflectApply =
   R && typeof R.apply === "function"
     ? R.apply
     : function ReflectApply(target, receiver, args) {
         return Function.prototype.apply.call(target, receiver, args);
       };
 
-var ReflectOwnKeys;
+let ReflectOwnKeys;
 if (R && typeof R.ownKeys === "function") {
   ReflectOwnKeys = R.ownKeys;
 } else if (Object.getOwnPropertySymbols) {
@@ -48,7 +48,7 @@ function ProcessEmitWarning(warning) {
   if (console && console.warn) console.warn(warning);
 }
 
-var NumberIsNaN =
+const NumberIsNaN =
   Number.isNaN ||
   function NumberIsNaN(value) {
     return value !== value;
@@ -67,7 +67,7 @@ EventEmitter.prototype._maxListeners = undefined;
 
 // By default EventEmitters will print a warning if more than 10 listeners are
 // added to it. This is a useful default which helps finding memory leaks.
-var defaultMaxListeners = 10;
+let defaultMaxListeners = 10;
 
 function checkListener(listener) {
   if (typeof listener !== "function") {
@@ -131,17 +131,17 @@ EventEmitter.prototype.getMaxListeners = function getMaxListeners() {
 };
 
 EventEmitter.prototype.emit = function emit(type) {
-  var args = [];
+  const args = [];
   for (var i = 1; i < arguments.length; i++) args.push(arguments[i]);
-  var doError = type === "error";
+  let doError = type === "error";
 
-  var events = this._events;
+  const events = this._events;
   if (events !== undefined) doError = doError && events.error === undefined;
   else if (!doError) return false;
 
   // If there is no 'error' event listener then throw.
   if (doError) {
-    var er;
+    let er;
     if (args.length > 0) er = args[0];
     if (er instanceof Error) {
       // Note: The comments on the `throw` lines are intentional, they show
@@ -149,22 +149,22 @@ EventEmitter.prototype.emit = function emit(type) {
       throw er; // Unhandled 'error' event
     }
     // At least give some kind of context to the user
-    var err = new Error(
+    const err = new Error(
       "Unhandled error." + (er ? " (" + er.message + ")" : "")
     );
     err.context = er;
     throw err; // Unhandled 'error' event
   }
 
-  var handler = events[type];
+  const handler = events[type];
 
   if (handler === undefined) return false;
 
   if (typeof handler === "function") {
     ReflectApply(handler, this, args);
   } else {
-    var len = handler.length;
-    var listeners = arrayClone(handler, len);
+    const len = handler.length;
+    const listeners = arrayClone(handler, len);
     for (var i = 0; i < len; ++i) ReflectApply(listeners[i], this, args);
   }
 
@@ -172,9 +172,9 @@ EventEmitter.prototype.emit = function emit(type) {
 };
 
 function _addListener(target, type, listener, prepend) {
-  var m;
-  var events;
-  var existing;
+  let m;
+  let events;
+  let existing;
 
   checkListener(listener);
 
@@ -222,7 +222,7 @@ function _addListener(target, type, listener, prepend) {
       existing.warned = true;
       // No error code for this since it is a Warning
       // eslint-disable-next-line no-restricted-syntax
-      var w = new Error(
+      const w = new Error(
         "Possible EventEmitter memory leak detected. " +
           existing.length +
           " " +
@@ -265,14 +265,14 @@ function onceWrapper() {
 }
 
 function _onceWrap(target, type, listener) {
-  var state = {
+  const state = {
     fired: false,
     wrapFn: undefined,
-    target: target,
-    type: type,
-    listener: listener,
+    target,
+    type,
+    listener,
   };
-  var wrapped = onceWrapper.bind(state);
+  const wrapped = onceWrapper.bind(state);
   wrapped.listener = listener;
   state.wrapFn = wrapped;
   return wrapped;
@@ -298,7 +298,7 @@ EventEmitter.prototype.removeListener = function removeListener(
   type,
   listener
 ) {
-  var list, events, position, i, originalListener;
+  let list, events, position, i, originalListener;
 
   checkListener(listener);
 
@@ -312,8 +312,9 @@ EventEmitter.prototype.removeListener = function removeListener(
     if (--this._eventsCount === 0) this._events = Object.create(null);
     else {
       delete events[type];
-      if (events.removeListener)
+      if (events.removeListener) {
         this.emit("removeListener", type, list.listener || listener);
+      }
     }
   } else if (typeof list !== "function") {
     position = -1;
@@ -335,8 +336,9 @@ EventEmitter.prototype.removeListener = function removeListener(
 
     if (list.length === 1) events[type] = list[0];
 
-    if (events.removeListener !== undefined)
+    if (events.removeListener !== undefined) {
       this.emit("removeListener", type, originalListener || listener);
+    }
   }
 
   return this;
@@ -345,7 +347,7 @@ EventEmitter.prototype.removeListener = function removeListener(
 EventEmitter.prototype.off = EventEmitter.prototype.removeListener;
 
 EventEmitter.prototype.removeAllListeners = function removeAllListeners(type) {
-  var listeners, events, i;
+  let listeners, events, i;
 
   events = this._events;
   if (events === undefined) return this;
@@ -364,8 +366,8 @@ EventEmitter.prototype.removeAllListeners = function removeAllListeners(type) {
 
   // emit removeListener for all listeners on all events
   if (arguments.length === 0) {
-    var keys = Object.keys(events);
-    var key;
+    const keys = Object.keys(events);
+    let key;
     for (i = 0; i < keys.length; ++i) {
       key = keys[i];
       if (key === "removeListener") continue;
@@ -392,15 +394,16 @@ EventEmitter.prototype.removeAllListeners = function removeAllListeners(type) {
 };
 
 function _listeners(target, type, unwrap) {
-  var events = target._events;
+  const events = target._events;
 
   if (events === undefined) return [];
 
-  var evlistener = events[type];
+  const evlistener = events[type];
   if (evlistener === undefined) return [];
 
-  if (typeof evlistener === "function")
+  if (typeof evlistener === "function") {
     return unwrap ? [evlistener.listener || evlistener] : [evlistener];
+  }
 
   return unwrap
     ? unwrapListeners(evlistener)
@@ -425,10 +428,10 @@ EventEmitter.listenerCount = function (emitter, type) {
 
 EventEmitter.prototype.listenerCount = listenerCount;
 function listenerCount(type) {
-  var events = this._events;
+  const events = this._events;
 
   if (events !== undefined) {
-    var evlistener = events[type];
+    const evlistener = events[type];
 
     if (typeof evlistener === "function") {
       return 1;
@@ -445,8 +448,8 @@ EventEmitter.prototype.eventNames = function eventNames() {
 };
 
 function arrayClone(arr, n) {
-  var copy = new Array(n);
-  for (var i = 0; i < n; ++i) copy[i] = arr[i];
+  const copy = new Array(n);
+  for (let i = 0; i < n; ++i) copy[i] = arr[i];
   return copy;
 }
 
@@ -456,8 +459,8 @@ function spliceOne(list, index) {
 }
 
 function unwrapListeners(arr) {
-  var ret = new Array(arr.length);
-  for (var i = 0; i < ret.length; ++i) {
+  const ret = new Array(arr.length);
+  for (let i = 0; i < ret.length; ++i) {
     ret[i] = arr[i].listener || arr[i];
   }
   return ret;

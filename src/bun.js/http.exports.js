@@ -44,16 +44,16 @@ export class Server extends EventEmitter {
         hostname: options.host,
 
         fetch(req) {
-          var pendingResponse;
-          var pendingError;
-          var rejectFunction, resolveFunction;
-          var reject = (err) => {
+          let pendingResponse;
+          let pendingError;
+          let rejectFunction, resolveFunction;
+          const reject = (err) => {
             if (pendingError) return;
             pendingError = err;
             if (rejectFunction) rejectFunction(err);
           };
 
-          var reply = function (resp) {
+          const reply = function (resp) {
             if (pendingResponse) return;
             pendingResponse = resp;
             if (resolveFunction) resolveFunction(resp);
@@ -92,9 +92,9 @@ export class Server extends EventEmitter {
 }
 
 function assignHeaders(object, req) {
-  var headers = req.headers.toJSON();
+  const headers = req.headers.toJSON();
   const rawHeaders = new Array(req.headers.count * 2);
-  var i = 0;
+  let i = 0;
   for (const key in headers) {
     rawHeaders[i++] = key;
     rawHeaders[i++] = headers[key];
@@ -112,11 +112,11 @@ export class IncomingMessage extends Readable {
     const url = new URL(req.url);
 
     this._no_body =
-      "GET" === method ||
-      "HEAD" === method ||
-      "TRACE" === method ||
-      "CONNECT" === method ||
-      "OPTIONS" === method ||
+      method === "GET" ||
+      method === "HEAD" ||
+      method === "TRACE" ||
+      method === "CONNECT" ||
+      method === "OPTIONS" ||
       (parseInt(req.headers.get("Content-Length") || "") || 0) === 0;
 
     this._req = req;
@@ -217,7 +217,7 @@ export class IncomingMessage extends Readable {
   }
 
   get socket() {
-    var _socket = this._socket;
+    let _socket = this._socket;
     if (_socket) return _socket;
 
     this._socket = _socket = new EventEmitter();
@@ -291,10 +291,10 @@ export class ServerResponse extends Writable {
   }
 
   #ensureReadableStreamController(run) {
-    var thisController = this.#controller;
+    const thisController = this.#controller;
     if (thisController) return run(thisController);
     this.headersSent = true;
-    var firstWrite = this.#firstWrite;
+    let firstWrite = this.#firstWrite;
     this.#firstWrite = undefined;
     this._reply(
       new Response(
@@ -318,7 +318,7 @@ export class ServerResponse extends Writable {
 
   _final(callback) {
     if (!this.headersSent) {
-      var data = this.#firstWrite || "";
+      const data = this.#firstWrite || "";
       this.#firstWrite = undefined;
       this._reply(
         new Response(data, {
@@ -396,27 +396,27 @@ export class ServerResponse extends Writable {
   flushHeaders() {}
 
   removeHeader(name) {
-    var headers = this.#headers;
+    const headers = this.#headers;
     headers.delete(name);
   }
 
   getHeader(name) {
-    var headers = this.#headers;
+    const headers = this.#headers;
     return headers.get(name);
   }
 
   hasHeader(name) {
-    var headers = this.#headers;
+    const headers = this.#headers;
     return headers.has(name);
   }
 
   getHeaderNames() {
-    var headers = this.#headers;
+    const headers = this.#headers;
     return Array.from(headers.keys());
   }
 
   setHeader(name, value) {
-    var headers = this.#headers;
+    const headers = this.#headers;
 
     headers.set(name, value);
 
@@ -603,8 +603,9 @@ function _writeHead(statusCode, reason, obj, response) {
     response.statusMessage = reason;
   } else {
     // writeHead(statusCode[, headers])
-    if (!response.statusMessage)
+    if (!response.statusMessage) {
       response.statusMessage = STATUS_CODES[statusCode] || "unknown";
+    }
     obj = reason;
   }
   response.statusCode = statusCode;
@@ -632,7 +633,7 @@ function _writeHead(statusCode, reason, obj, response) {
     }
   }
 }
-var defaultObject = {
+const defaultObject = {
   Server,
   METHODS,
   STATUS_CODES,
@@ -641,7 +642,7 @@ var defaultObject = {
   IncomingMessage,
 };
 
-var wrapper =
+const wrapper =
   (0,
   function () {
     return defaultObject;

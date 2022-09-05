@@ -1,4 +1,4 @@
-var supportsColor;
+let supportsColor;
 
 if ("Bun" in globalThis) {
   if (Bun.enableANSIColors) {

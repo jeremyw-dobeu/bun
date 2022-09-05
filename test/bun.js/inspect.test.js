@@ -1,8 +1,8 @@
 import { it, expect } from "bun:test";
 
 it("Blob inspect", () => {
-  expect(Bun.inspect(new Blob(["123"]))).toBe(`Blob (3 bytes)`);
-  expect(Bun.inspect(new Blob(["123".repeat(900)]))).toBe(`Blob (3 KB)`);
+  expect(Bun.inspect(new Blob(["123"]))).toBe("Blob (3 bytes)");
+  expect(Bun.inspect(new Blob(["123".repeat(900)]))).toBe("Blob (3 KB)");
   expect(Bun.inspect(Bun.file("/tmp/file.txt")))
     .toBe(`FileRef ("/tmp/file.txt") {
   type: "text/plain;charset=utf-8"
@@ -31,7 +31,7 @@ it("Blob inspect", () => {
 });
 
 it("utf16 property name", () => {
-  var { Database } = require("bun:sqlite");
+  const { Database } = require("bun:sqlite");
   const db = Database.open(":memory:");
   expect(Bun.inspect(db.prepare("select '😀' as 笑").all())).toBe(
     '[ { "笑": "😀" } ]'
@@ -68,7 +68,7 @@ it("MessageEvent", () => {
 
 // https://github.com/oven-sh/bun/issues/561
 it("TypedArray prints", () => {
-  for (let TypedArray of [
+  for (const TypedArray of [
     Uint8Array,
     Uint16Array,
     Uint32Array,
@@ -96,7 +96,7 @@ it("TypedArray prints", () => {
 });
 
 it("BigIntArray", () => {
-  for (let TypedArray of [BigInt64Array, BigUint64Array]) {
+  for (const TypedArray of [BigInt64Array, BigUint64Array]) {
     const buffer = new TypedArray([1n, 2n, 3n, 4n, 5n, 6n, 7n, 8n, 9n, 10n]);
     const input = Bun.inspect(buffer);
 
@@ -114,7 +114,7 @@ it("BigIntArray", () => {
 });
 
 it("FloatArray", () => {
-  for (let TypedArray of [Float32Array, Float64Array]) {
+  for (const TypedArray of [Float32Array, Float64Array]) {
     const buffer = new TypedArray([Math.fround(42.68)]);
     const input = Bun.inspect(buffer);
 
@@ -136,7 +136,7 @@ it("FloatArray", () => {
 it("jsx with two elements", () => {
   const input = Bun.inspect(
     <div hello="quoted">
-      <input type="text" value={"123"} />
+      <input type="text" value="123" />
       string inside child
     </div>
   );
@@ -154,7 +154,7 @@ const Foo = () => <div hello="quoted">foo</div>;
 it("jsx with anon component", () => {
   const input = Bun.inspect(<Foo />);
 
-  const output = `<NoName />`;
+  const output = "<NoName />";
 
   expect(input).toBe(output);
 });
@@ -162,7 +162,7 @@ it("jsx with anon component", () => {
 it("jsx with fragment", () => {
   const input = Bun.inspect(<>foo bar</>);
 
-  const output = `<>foo bar</>`;
+  const output = "<>foo bar</>";
 
   expect(input).toBe(output);
 });
@@ -187,7 +187,7 @@ it("inspect", () => {
   expect(Bun.inspect({ 'hello-"there': "1", there: 2 })).toBe(
     '{ "hello-\\"there": "1", there: 2 }'
   );
-  var str = "123";
+  let str = "123";
   while (str.length < 4096) {
     str += "123";
   }
@@ -219,7 +219,7 @@ it("inspect", () => {
   expect(
     Bun.inspect(
       <div hello="quoted">
-        <input type="text" value={"123"} />
+        <input type="text" value="123" />
       </div>
     )
   ).toBe(

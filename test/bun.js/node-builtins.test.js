@@ -5,7 +5,7 @@ import { EventEmitter } from "events";
 describe("EventEmitter", () => {
   it("should emit events", () => {
     const emitter = new EventEmitter();
-    var called = false;
+    let called = false;
     const listener = () => {
       called = true;
     };

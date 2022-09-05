@@ -1,6 +1,6 @@
-var foo = () => {
+const foo = () => {
   // prettier-ignore
-  var D=(i,r)=>()=>(r||i((r={exports:{}}).exports,r),r.exports);
+  const D = (i, r) => () => (r || i((r = { exports: {} }).exports, r), r.exports)
   return D;
 };
 

@@ -3,12 +3,12 @@ import { gc as gcTrace } from "./gc";
 
 const getByteLength = (str) => {
   // returns the byte length of an utf8 string
-  var s = str.length;
-  for (var i = str.length - 1; i >= 0; i--) {
-    var code = str.charCodeAt(i);
+  let s = str.length;
+  for (let i = str.length - 1; i >= 0; i--) {
+    const code = str.charCodeAt(i);
     if (code > 0x7f && code <= 0x7ff) s++;
     else if (code > 0x7ff && code <= 0xffff) s += 2;
-    if (code >= 0xdc00 && code <= 0xdfff) i--; //trail surrogate
+    if (code >= 0xdc00 && code <= 0xdfff) i--; // trail surrogate
   }
   return s;
 };
@@ -32,7 +32,7 @@ describe("TextDecoder", () => {
   it("should decode unicode text", () => {
     const decoder = new TextDecoder();
     gcTrace(true);
-    var text = `❤️ Red Heart`;
+    const text = "❤️ Red Heart";
 
     const bytes = [
       226, 157, 164, 239, 184, 143, 32, 82, 101, 100, 32, 72, 101, 97, 114, 116,
@@ -50,10 +50,11 @@ describe("TextDecoder", () => {
   });
 
   describe("typedArrays", () => {
-    var text = `ABC DEF GHI JKL MNO PQR STU VWX YZ ABC DEF GHI JKL MNO PQR STU V`;
-    var bytes = new TextEncoder().encode(text);
-    var decoder = new TextDecoder();
-    for (let TypedArray of [
+    const text =
+      "ABC DEF GHI JKL MNO PQR STU VWX YZ ABC DEF GHI JKL MNO PQR STU V";
+    const bytes = new TextEncoder().encode(text);
+    const decoder = new TextDecoder();
+    for (const TypedArray of [
       Uint8Array,
       Uint16Array,
       Uint32Array,
@@ -77,9 +78,10 @@ describe("TextDecoder", () => {
     const decoder = new TextDecoder();
     const encoder = new TextEncoder();
     gcTrace(true);
-    var text = `❤️❤️❤️❤️❤️❤️ Red Heart`;
+    let text = "❤️❤️❤️❤️❤️❤️ Red Heart";
 
-    text += ` ✨ Sparkles 🔥 Fire 😀 😃 😄 😁 😆 😅 😂 🤣 🥲 ☺️ 😊 😇 🙂 🙃 😉 😌 😍 🥰 😘 😗 😙 😚 😋 😛 😝 😜 🤪 🤨 🧐 🤓 😎 🥸 🤩 🥳 😏 😒 😞 😔 😟 😕 🙁 ☹️ 😣 😖 😫 😩 🥺 😢 😭 😤 😠 😡 🤬 🤯 😳 🥵 🥶 😱 😨 😰`;
+    text +=
+      " ✨ Sparkles 🔥 Fire 😀 😃 😄 😁 😆 😅 😂 🤣 🥲 ☺️ 😊 😇 🙂 🙃 😉 😌 😍 🥰 😘 😗 😙 😚 😋 😛 😝 😜 🤪 🤨 🧐 🤓 😎 🥸 🤩 🥳 😏 😒 😞 😔 😟 😕 🙁 ☹️ 😣 😖 😫 😩 🥺 😢 😭 😤 😠 😡 🤬 🤯 😳 🥵 🥶 😱 😨 😰";
     gcTrace(true);
     expect(decoder.decode(encoder.encode(text))).toBe(text);
     gcTrace(true);

@@ -71,16 +71,16 @@ async function main() {
     },
   });
   const promises = [];
-  let allTestsPassed = true;
+  const allTestsPassed = true;
 
   async function runPage(key) {
-    var page;
+    let page;
 
     try {
       console.log("Opening page");
       page = await browser.newPage();
 
-      console.log(`Navigating to "http://localhost:8080/"`);
+      console.log('Navigating to "http://localhost:8080/"');
 
       while (true) {
         try {
@@ -97,9 +97,9 @@ async function main() {
 
       //   runner.stdout.pipe(process.stdout);
       //   runner.stderr.pipe(process.stderr);
-      var didResolve = false;
+      const didResolve = false;
 
-      console.log(`Completed. Done.`);
+      console.log("Completed. Done.");
     } catch (error) {
       console.error(error);
     } finally {

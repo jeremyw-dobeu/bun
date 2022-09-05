@@ -1,7 +1,7 @@
 import "./nql-define.2.js";
 
 /* eslint-disable no-console */
-var warned = {};
+let warned = {};
 export function warning(valid, message) {
   // Support uglify
   if (

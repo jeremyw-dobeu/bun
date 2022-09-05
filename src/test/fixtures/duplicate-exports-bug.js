@@ -1,5 +1,5 @@
 export function boop() {}
 
-var UniformsUtils;
+let UniformsUtils;
 
 export { UniformsUtils };

@@ -1,9 +1,8 @@
-import { group } from "mitata";
-import { bench, run } from "mitata";
+import { group, bench, run } from "mitata";
 import { encode as htmlEntityEncode } from "html-entities";
 import { escape as heEscape } from "he";
 
-var bunEscapeHTML = globalThis.escapeHTML || Bun.escapeHTML;
+const bunEscapeHTML = globalThis.escapeHTML || Bun.escapeHTML;
 
 const FIXTURE = require("fs")
   .readFileSync(import.meta.dir + "/_fixture.txt", "utf8")
@@ -97,8 +96,8 @@ function reactEscapeHtml(string) {
 //   );
 // }
 
-for (let input of [
-  `long string, nothing to escape... `.repeat(9999999 * 3),
+for (const input of [
+  "long string, nothing to escape... ".repeat(9999999 * 3),
   FIXTURE.repeat(8000),
   // "[unicode]" + FIXTURE_WITH_UNICODE,
 ]) {
@@ -106,16 +105,16 @@ for (let input of [
     {
       summary: true,
       name:
-        `"` +
+        '"' +
         input.substring(0, Math.min(input.length, 32)) +
-        `"` +
+        '"' +
         ` (${new Intl.NumberFormat().format(input.length / 100_000_000_0)} GB)`,
     },
     () => {
       // bench(`ReactDOM.escapeHTML`, () => reactEscapeHtml(input));
       // bench(`html-entities.encode`, () => htmlEntityEncode(input));
       // bench(`he.escape`, () => heEscape(input));
-      bench(`Bun.escapeHTML`, () => bunEscapeHTML(input));
+      bench("Bun.escapeHTML", () => bunEscapeHTML(input));
     }
   );
 }
