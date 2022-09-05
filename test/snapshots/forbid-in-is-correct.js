@@ -1,5 +1,7 @@
-var foo = () => {
-  var D = (i, r) => () => (r || i((r = { exports: {} }).exports, r), r.exports);
+const foo = () => {
+  const D = (i, r) => () => (
+    r || i((r = { exports: {} }).exports, r), r.exports
+  );
   return D;
 };
 export function test() {
@@ -7,4 +9,4 @@ export function test() {
   testDone(import.meta.url);
 }
 
-//# sourceMappingURL=http://localhost:8080/forbid-in-is-correct.js.map
+// # sourceMappingURL=http://localhost:8080/forbid-in-is-correct.js.map

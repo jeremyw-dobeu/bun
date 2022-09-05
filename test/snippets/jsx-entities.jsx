@@ -918,10 +918,10 @@ const elements = {
 };
 
 export function test() {
-  for (let rawKey in elements) {
-    var key = rawKey;
+  for (const rawKey in elements) {
+    let key = rawKey;
     if (rawKey.startsWith("&")) {
-      var txt = document.createElement("textarea");
+      const txt = document.createElement("textarea");
       txt.innerHTML = rawKey;
       key = txt.value;
     }

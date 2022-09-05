@@ -1,2 +1,2 @@
-var ho = true;
+const ho = true;
 console.log(([, len]) => true);

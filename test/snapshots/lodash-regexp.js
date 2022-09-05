@@ -1,8 +1,6 @@
-import {
-__require as require
-} from "http://localhost:8080/bun:wrap";
+import { __require as require } from "http://localhost:8080/bun:wrap";
 import * as $2f2e4966 from "http://localhost:8080/node_modules/lodash/lodash.js";
-var { shuffle} = require($2f2e4966);
+const { shuffle } = require($2f2e4966);
 export function test() {
   const foo = [1, 2, 3, 4, 6];
   const bar = shuffle(foo);
@@ -10,7 +8,7 @@ export function test() {
   console.assert(bar.length === foo.length);
   bar.sort();
   foo.sort();
-  for (let i = 0;i < bar.length; i++) {
+  for (let i = 0; i < bar.length; i++) {
     console.assert(bar[i] === foo[i], "expected " + i + " to be " + foo[i]);
     console.assert(typeof bar[i] === "number");
     console.assert(typeof foo[i] === "number");
@@ -18,4 +16,4 @@ export function test() {
   return testDone(import.meta.url);
 }
 
-//# sourceMappingURL=http://localhost:8080/lodash-regexp.js.map
+// # sourceMappingURL=http://localhost:8080/lodash-regexp.js.map

@@ -66,7 +66,7 @@ it("btoa", () => {
   } catch (error) {
     expect(error.name).toBe("TypeError");
   }
-  var window = "[object Window]";
+  const window = "[object Window]";
   expect(btoa("")).toBe("");
   expect(btoa(null)).toBe("bnVsbA==");
   expect(btoa(undefined)).toBe("dW5kZWZpbmVk");

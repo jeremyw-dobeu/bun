@@ -1,35 +1,30 @@
 import {
-__HMRClient as Bun
+  __HMRClient as Bun,
+  __FastRefreshModule as FastHMR,
+  __FastRefreshRuntime as FastRefresh,
 } from "http://localhost:8080/bun:wrap";
 Bun.activate(false);
-import {
-__FastRefreshModule as FastHMR
-} from "http://localhost:8080/bun:wrap";
-import {
-__FastRefreshRuntime as FastRefresh
-} from "http://localhost:8080/bun:wrap";
-var hmr = new FastHMR(3925211795, "number-literal-bug.js", FastRefresh), exports = hmr.exports;
-(hmr._load = function() {
+const hmr = new FastHMR(3925211795, "number-literal-bug.js", FastRefresh);
+const exports = hmr.exports;
+(hmr._load = function () {
   function test() {
     const precision = 10;
     try {
-      parseFloat(0 .toPrecision(precision) + "1");
+      parseFloat((0).toPrecision(precision) + "1");
     } catch (exception) {
       throw new Error("Test Failed", exception);
     }
     testDone(import.meta.url);
   }
   hmr.exportAll({
-    test: () => test
+    test: () => test,
   });
 })();
-var $$hmr_test = hmr.exports.test;
-hmr._update = function(exports) {
+let $$hmr_test = hmr.exports.test;
+hmr._update = function (exports) {
   $$hmr_test = exports.test;
 };
 
-export {
-  $$hmr_test as test
-};
+export { $$hmr_test as test };
 
-//# sourceMappingURL=http://localhost:8080/number-literal-bug.js.map
+// # sourceMappingURL=http://localhost:8080/number-literal-bug.js.map

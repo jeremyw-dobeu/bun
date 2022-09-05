@@ -1,7 +1,9 @@
-import { template as _$template } from "r-dom";
-import { createComponent as _$createComponent } from "r-dom";
+import {
+  template as _$template,
+  createComponent as _$createComponent,
+} from "r-dom";
 
-const _tmpl$ = /*#__PURE__*/ _$template(`<namespace:tag></namespace:tag>`, 2);
+const _tmpl$ = /* #__PURE__ */ _$template("<namespace:tag></namespace:tag>", 2);
 
 const template = _$createComponent(module.A, {});
 

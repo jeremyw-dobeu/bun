@@ -18,10 +18,10 @@ test("exists", () => {
 });
 
 test("CloseEvent", () => {
-  var event = new CloseEvent("close", { reason: "world" });
+  const event = new CloseEvent("close", { reason: "world" });
   expect(event.type).toBe("close");
   const target = new EventTarget();
-  var called = false;
+  let called = false;
   target.addEventListener("close", ({ type, reason }) => {
     expect(type).toBe("close");
     expect(reason).toBe("world");
@@ -32,10 +32,10 @@ test("CloseEvent", () => {
 });
 
 test("MessageEvent", () => {
-  var event = new MessageEvent("message", { data: "world" });
+  const event = new MessageEvent("message", { data: "world" });
   expect(event.type).toBe("message");
   const target = new EventTarget();
-  var called = false;
+  let called = false;
   target.addEventListener("message", ({ type, data }) => {
     expect(type).toBe("message");
     expect(data).toBe("world");

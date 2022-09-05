@@ -1,6 +1,6 @@
 // this file is intended to be runnable both from node and bun
-var { readFileSync, writeFileSync } = require("fs");
-var { join } = require("path");
+const { readFileSync, writeFileSync } = require("fs");
+const { join } = require("path");
 
 const destination = join(__dirname, "../src/bun.js/bindings/headers.zig");
 const replacements = join(
@@ -9,8 +9,8 @@ const replacements = join(
 );
 
 console.log("Writing to", destination);
-var output = "// GENERATED CODE - DO NOT MODIFY BY HAND\n\n";
-var input = readFileSync(destination, "utf8");
+const output = "// GENERATED CODE - DO NOT MODIFY BY HAND\n\n";
+let input = readFileSync(destination, "utf8");
 
 const first_extern = input.indexOf("extern fn");
 const first_extern_line = input.indexOf("\n", first_extern - 128);
@@ -49,7 +49,7 @@ const hardcode = {
   "[*c]JSC__JSGlobalObject": "?*JSC__JSGlobalObject",
 };
 
-for (let key in hardcode) {
+for (const key in hardcode) {
   const value = hardcode[key];
   input = input.replaceAll(key, value);
 }
@@ -73,8 +73,8 @@ const remove = [
   "pub const JSClassRef",
   "pub const __",
 ];
-var lines = input.split("\n");
-for (let prefix of remove) {
+const lines = input.split("\n");
+for (const prefix of remove) {
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
     if (line.startsWith(prefix)) {

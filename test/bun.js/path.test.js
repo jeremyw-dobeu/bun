@@ -1,8 +1,8 @@
-const { file } = import.meta;
-
 import { describe, it, expect } from "bun:test";
 import * as path from "node:path";
 import assert from "assert";
+
+const { file } = import.meta;
 
 const strictEqual = (...args) => {
   assert.strictEqual(...args);
@@ -438,10 +438,11 @@ it("path.resolve", () => {
       const actual = resolve.apply(null, test);
       let actualAlt;
       const os = resolve === path.win32.resolve ? "win32" : "posix";
-      if (resolve === path.win32.resolve && !isWindows)
+      if (resolve === path.win32.resolve && !isWindows) {
         actualAlt = actual.replace(backslashRE, "/");
-      else if (resolve !== path.win32.resolve && isWindows)
+      } else if (resolve !== path.win32.resolve && isWindows) {
         actualAlt = actual.replace(slashRE, "\\");
+      }
 
       const message = `path.${os}.resolve(${test
         .map(JSON.stringify)

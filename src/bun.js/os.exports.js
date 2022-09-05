@@ -24,7 +24,7 @@ function bound(obj) {
   };
 }
 
-var os = bound(Bun._Os());
+const os = bound(Bun._Os());
 
 export var {
   arch,

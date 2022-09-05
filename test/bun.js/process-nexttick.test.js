@@ -2,8 +2,8 @@ import { it } from "bun:test";
 
 it("process.nextTick", async () => {
   // You can verify this test is correct by copy pasting this into a browser's console and checking it doesn't throw an error.
-  var run = 0;
-  var queueMicrotask = process.nextTick;
+  let run = 0;
+  const queueMicrotask = process.nextTick;
 
   await new Promise((resolve, reject) => {
     queueMicrotask(() => {
@@ -59,10 +59,11 @@ it("process.nextTick", async () => {
       passed = exception instanceof TypeError;
     }
 
-    if (!passed)
+    if (!passed) {
       throw new Error(
         "queueMicrotask should throw a TypeError if the argument is not a function"
       );
+    }
   }
 
   {
@@ -73,17 +74,19 @@ it("process.nextTick", async () => {
       passed = exception instanceof TypeError;
     }
 
-    if (!passed)
+    if (!passed) {
       throw new Error(
         "queueMicrotask should throw a TypeError if the argument is empty"
       );
+    }
   }
 
   await new Promise((resolve, reject) => {
     process.nextTick(
       (first, second) => {
-        if (first !== 12345 || second !== "hello")
+        if (first !== 12345 || second !== "hello") {
           reject(new Error("process.nextTick called with wrong arguments"));
+        }
         resolve(true);
       },
       12345,

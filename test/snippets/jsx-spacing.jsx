@@ -6,14 +6,14 @@ export function test() {
   const _bun = ReactDOM.renderToString(
     <ReturnDescriptionAsString
       description="line1
-line2 trailing space 
+line2 trailing space
 
 line4 no trailing space 'single quote' \t\f\v\uF000 `template string`
 
 line6 no trailing space
 line7 trailing newline that ${terminates} the string literal
 "
-    ></ReturnDescriptionAsString>
+    />
   );
 
   // convert HTML entities to unicode

@@ -1,4 +1,4 @@
-var fs = Bun.fs();
+const fs = Bun.fs();
 
 // note: this is not quite the same as how node does it
 // in some cases, node swaps around arguments or makes small tweaks to the return type
@@ -7,9 +7,9 @@ function promisify(fsFunction) {
   // TODO: remove variadic arguments
   // we can use new Function() here instead
   // based on fsFucntion.length
-  var obj = {
+  const obj = {
     [fsFunction.name]: function (resolve, reject, args) {
-      var result;
+      let result;
       try {
         result = fsFunction.apply(fs, args);
         args = undefined;
@@ -23,7 +23,7 @@ function promisify(fsFunction) {
     },
   };
 
-  var func = obj[fsFunction.name];
+  const func = obj[fsFunction.name];
 
   // TODO: consider @createPromiseCapabiilty intrinsic
   return (...args) => {

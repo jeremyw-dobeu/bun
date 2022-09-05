@@ -33,7 +33,7 @@ const template2 = (
   <Child
     name="Jake"
     dynamic={state.data}
-    stale={/*@once*/ state.data}
+    stale={/* @once */ state.data}
     handleClick={clickHandler}
     hyphen-ated={state.data}
     ref={(el) => (e = el)}
@@ -50,7 +50,11 @@ const template3 = (
 );
 
 const [s, set] = createSignal();
-const template4 = <Child ref={set}>{<div />}</Child>;
+const template4 = (
+  <Child ref={set}>
+    <div />
+  </Child>
+);
 
 const template5 = <Child dynamic={state.dynamic}>{state.dynamic}</Child>;
 

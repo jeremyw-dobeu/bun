@@ -1,4 +1,4 @@
-var lines;
+let lines;
 const data = () =>
   lines.map(([a = null, b = null, c = null, d = null]) => ({
     a,
@@ -16,7 +16,7 @@ export function test() {
     [undefined, undefined, undefined, undefined],
   ];
 
-  for (let foo of data()) {
+  for (const foo of data()) {
     console.assert(foo.a === null);
     console.assert(foo.b === null);
     console.assert(foo.c === null);

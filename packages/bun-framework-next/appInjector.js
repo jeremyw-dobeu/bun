@@ -1,5 +1,5 @@
 export function maybeInjectApp(expr) {
-  var app;
+  let app;
   try {
     const path = Bun.routesDir + "/_app";
     app = Bun.resolveSync(path, Bun.cwd + "/");

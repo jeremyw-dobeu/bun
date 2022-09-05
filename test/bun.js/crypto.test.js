@@ -13,8 +13,8 @@ import { it, expect, describe } from "bun:test";
 import { readFileSync } from "fs";
 
 describe("crypto", () => {
-  for (let Hash of [MD5, MD4, SHA1, SHA256, SHA384, SHA512, SHA512_256]) {
-    for (let [input, label] of [
+  for (const Hash of [MD5, MD4, SHA1, SHA256, SHA384, SHA512, SHA512_256]) {
+    for (const [input, label] of [
       ["hello world", '"hello world"'],
       ["hello world".repeat(20).slice(), '"hello world" x 20'],
       ["", "empty string"],
@@ -49,7 +49,7 @@ describe("crypto", () => {
         });
 
         it(`${Hash.name} buffer`, () => {
-          var buf = new Uint8Array(256);
+          const buf = new Uint8Array(256);
           const result = new Hash();
 
           result.update(input);
@@ -59,7 +59,7 @@ describe("crypto", () => {
         });
 
         it(`${Hash.name} buffer`, () => {
-          var buf = new Uint8Array(256);
+          const buf = new Uint8Array(256);
 
           expect(Hash.hash(input, buf) instanceof Uint8Array).toBe(true);
           gc(true);

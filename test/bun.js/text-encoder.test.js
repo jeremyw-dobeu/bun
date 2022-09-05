@@ -3,19 +3,19 @@ import { gc as gcTrace } from "./gc";
 
 const getByteLength = (str) => {
   // returns the byte length of an utf8 string
-  var s = str.length;
-  for (var i = str.length - 1; i >= 0; i--) {
-    var code = str.charCodeAt(i);
+  let s = str.length;
+  for (let i = str.length - 1; i >= 0; i--) {
+    const code = str.charCodeAt(i);
     if (code > 0x7f && code <= 0x7ff) s++;
     else if (code > 0x7ff && code <= 0xffff) s += 2;
-    if (code >= 0xdc00 && code <= 0xdfff) i--; //trail surrogate
+    if (code >= 0xdc00 && code <= 0xdfff) i--; // trail surrogate
   }
   return s;
 };
 
 describe("TextEncoder", () => {
   it("should encode latin1 text with non-ascii latin1 characters", () => {
-    var text = "H©ell©o Wor©ld!";
+    const text = "H©ell©o Wor©ld!";
 
     gcTrace(true);
     const encoder = new TextEncoder();
@@ -73,7 +73,7 @@ describe("TextEncoder", () => {
   });
 
   it("should encode latin1 rope text", () => {
-    var text = "Hello";
+    let text = "Hello";
     text += " ";
     text += "World!";
 
@@ -97,7 +97,7 @@ describe("TextEncoder", () => {
   });
 
   it("should encode latin1 rope text with non-ascii latin1 characters", () => {
-    var text = "H©ell©o";
+    let text = "H©ell©o";
     text += " ";
     text += "Wor©ld!";
 
@@ -125,12 +125,12 @@ describe("TextEncoder", () => {
   });
 
   it("should encode utf-16 text", () => {
-    var text = `❤️ Red Heart
+    const text = `❤️ Red Heart
               ✨ Sparkles
               🔥 Fire
           `;
-    var encoder = new TextEncoder();
-    var decoder = new TextDecoder();
+    const encoder = new TextEncoder();
+    const decoder = new TextDecoder();
     gcTrace(true);
     expect(decoder.decode(encoder.encode(text))).toBe(text);
     gcTrace(true);
@@ -138,7 +138,7 @@ describe("TextEncoder", () => {
 
   // this test is from a web platform test in WebKit
   describe("should use a unicode replacement character for invalid surrogate pairs", () => {
-    var bad = [
+    const bad = [
       {
         encoding: "utf-16le",
         input: [0x00, 0xd8],
@@ -196,15 +196,15 @@ describe("TextEncoder", () => {
 
   it("should encode utf-16 rope text", () => {
     gcTrace(true);
-    var textReal = `❤️ Red Heart ✨ Sparkles 🔥 Fire`;
+    const textReal = "❤️ Red Heart ✨ Sparkles 🔥 Fire";
 
-    var a = textReal.split("");
-    var text = "";
-    for (let j of a) {
+    const a = textReal.split("");
+    let text = "";
+    for (const j of a) {
       text += j;
     }
 
-    var encoder = new TextEncoder();
+    const encoder = new TextEncoder();
     expect(new TextDecoder().decode(encoder.encode(text))).toBe(textReal);
   });
 });

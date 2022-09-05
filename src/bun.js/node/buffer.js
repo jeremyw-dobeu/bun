@@ -3,18 +3,18 @@
 function createBuffer(BufferPrototype, BufferStatic, Realm) {
   "use strict";
 
-  var Uint8ArraySubarray = Realm.Uint8Array.prototype.subarray;
-  var isUint8Array = (value) => value instanceof Realm.Uint8Array;
-  var SymbolToPrimitive = Realm.Symbol.toPrimitive;
-  var isArray = Realm.Array.isArray;
-  var isArrayBufferLike =
+  const Uint8ArraySubarray = Realm.Uint8Array.prototype.subarray;
+  const isUint8Array = (value) => value instanceof Realm.Uint8Array;
+  const SymbolToPrimitive = Realm.Symbol.toPrimitive;
+  const isArray = Realm.Array.isArray;
+  const isArrayBufferLike =
     "SharedArrayBuffer" in Realm
       ? () =>
           value instanceof Realm.ArrayBuffer ||
           value instanceof Realm.SharedArrayBuffer
       : () => value instanceof Realm.ArrayBuffer;
 
-  var BufferInstance = class BufferInstance extends Realm.Uint8Array {
+  const BufferInstance = class BufferInstance extends Realm.Uint8Array {
     constructor(bufferOrLength, byteOffset, length) {
       super(bufferOrLength, byteOffset, length);
     }

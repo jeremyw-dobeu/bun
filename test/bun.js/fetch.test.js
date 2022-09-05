@@ -4,7 +4,7 @@ import { gc } from "./gc";
 
 describe("fetch", () => {
   const urls = ["https://example.com", "http://example.com"];
-  for (let url of urls) {
+  for (const url of urls) {
     gc();
     it(url, async () => {
       gc();
@@ -24,8 +24,8 @@ describe("fetch", () => {
 });
 
 function testBlobInterface(blobbyConstructor, hasBlobFn) {
-  for (let withGC of [false, true]) {
-    for (let jsonObject of [
+  for (const withGC of [false, true]) {
+    for (const jsonObject of [
       { hello: true },
       {
         hello:
@@ -36,7 +36,7 @@ function testBlobInterface(blobbyConstructor, hasBlobFn) {
         withGC ? " (with gc) " : ""
       }`, async () => {
         if (withGC) gc();
-        var response = blobbyConstructor(JSON.stringify(jsonObject));
+        const response = blobbyConstructor(JSON.stringify(jsonObject));
         if (withGC) gc();
         expect(JSON.stringify(await response.json())).toBe(
           JSON.stringify(jsonObject)
@@ -48,7 +48,7 @@ function testBlobInterface(blobbyConstructor, hasBlobFn) {
         jsonObject.hello === true ? "latin1" : "utf16"
       } arrayBuffer -> json${withGC ? " (with gc) " : ""}`, async () => {
         if (withGC) gc();
-        var response = blobbyConstructor(
+        const response = blobbyConstructor(
           new TextEncoder().encode(JSON.stringify(jsonObject))
         );
         if (withGC) gc();
@@ -62,7 +62,7 @@ function testBlobInterface(blobbyConstructor, hasBlobFn) {
         withGC ? " (with gc) " : ""
       }`, async () => {
         if (withGC) gc();
-        var response = blobbyConstructor(JSON.stringify(jsonObject));
+        const response = blobbyConstructor(JSON.stringify(jsonObject));
         if (withGC) gc();
         expect(await response.text()).toBe(JSON.stringify(jsonObject));
         if (withGC) gc();
@@ -72,7 +72,7 @@ function testBlobInterface(blobbyConstructor, hasBlobFn) {
         jsonObject.hello === true ? "latin1" : "utf16"
       } arrayBuffer -> text${withGC ? " (with gc) " : ""}`, async () => {
         if (withGC) gc();
-        var response = blobbyConstructor(
+        const response = blobbyConstructor(
           new TextEncoder().encode(JSON.stringify(jsonObject))
         );
         if (withGC) gc();
@@ -85,7 +85,7 @@ function testBlobInterface(blobbyConstructor, hasBlobFn) {
       }`, async () => {
         if (withGC) gc();
 
-        var response = blobbyConstructor(JSON.stringify(jsonObject));
+        const response = blobbyConstructor(JSON.stringify(jsonObject));
         if (withGC) gc();
 
         const bytes = new TextEncoder().encode(JSON.stringify(jsonObject));
@@ -108,7 +108,7 @@ function testBlobInterface(blobbyConstructor, hasBlobFn) {
       } arrayBuffer -> arrayBuffer${withGC ? " (with gc) " : ""}`, async () => {
         if (withGC) gc();
 
-        var response = blobbyConstructor(
+        const response = blobbyConstructor(
           new TextEncoder().encode(JSON.stringify(jsonObject))
         );
         if (withGC) gc();
@@ -134,7 +134,7 @@ function testBlobInterface(blobbyConstructor, hasBlobFn) {
         }`, async () => {
           if (withGC) gc();
           const text = JSON.stringify(jsonObject);
-          var response = blobbyConstructor(text);
+          const response = blobbyConstructor(text);
           if (withGC) gc();
           const size = new TextEncoder().encode(text).byteLength;
           if (withGC) gc();
@@ -170,7 +170,7 @@ function testBlobInterface(blobbyConstructor, hasBlobFn) {
 describe("Blob", () => {
   testBlobInterface((data) => new Blob([data]));
 
-  var blobConstructorValues = [
+  const blobConstructorValues = [
     ["123", "456"],
     ["123", 456],
     ["123", "456", "789"],
@@ -193,7 +193,7 @@ describe("Blob", () => {
     ],
   ];
 
-  var expected = [
+  const expected = [
     "123456",
     "123456",
     "123456789",
@@ -206,9 +206,9 @@ describe("Blob", () => {
     "😀 😃 😄 😁 😆 😅 😂 🤣 🥲 ☺️ 😊 😇 🙂 🙃 😉 😌 😍 🥰 😘 😗 😙 😚 😋 😛 😝 😜 🤪 🤨 🧐 🤓 😎 🥸 🤩 🥳",
   ];
 
-  it(`blobConstructorValues`, async () => {
+  it("blobConstructorValues", async () => {
     for (let i = 0; i < blobConstructorValues.length; i++) {
-      var response = new Blob(blobConstructorValues[i]);
+      const response = new Blob(blobConstructorValues[i]);
       const res = await response.text();
       if (res !== expected[i]) {
         throw new Error(
@@ -224,15 +224,15 @@ describe("Blob", () => {
     }
   });
 
-  for (let withGC of [false, true]) {
+  for (const withGC of [false, true]) {
     it(`Blob.slice() ${withGC ? " with gc" : ""}`, async () => {
-      var parts = ["hello", " ", "world"];
+      const parts = ["hello", " ", "world"];
       if (withGC) gc();
-      var str = parts.join("");
+      const str = parts.join("");
       if (withGC) gc();
-      var combined = new Blob(parts);
+      const combined = new Blob(parts);
       if (withGC) gc();
-      for (let part of parts) {
+      for (const part of parts) {
         if (withGC) gc();
         expect(
           await combined
@@ -242,7 +242,7 @@ describe("Blob", () => {
         if (withGC) gc();
       }
       if (withGC) gc();
-      for (let part of parts) {
+      for (const part of parts) {
         if (withGC) gc();
         expect(
           await combined
@@ -264,7 +264,7 @@ describe("Response", () => {
         { hello: "world" },
         { ok: "😉 😌 😍 🥰 😘 " },
       ];
-      for (let input of inputs) {
+      for (const input of inputs) {
         const output = JSON.stringify(input);
         expect(await Response.json(input).text()).toBe(output);
       }
@@ -274,7 +274,7 @@ describe("Response", () => {
       expect(await Response.json("").text()).toBe('""');
     });
     it("sets the content-type header", () => {
-      let response = Response.json("hello");
+      const response = Response.json("hello");
       expect(response.type).toBe("basic");
       expect(response.headers.get("content-type")).toBe(
         "application/json;charset=utf-8"
@@ -282,7 +282,7 @@ describe("Response", () => {
       expect(response.status).toBe(200);
     });
     it("supports number status code", () => {
-      let response = Response.json("hello", 407);
+      const response = Response.json("hello", 407);
       expect(response.type).toBe("basic");
       expect(response.headers.get("content-type")).toBe(
         "application/json;charset=utf-8"
@@ -291,7 +291,7 @@ describe("Response", () => {
     });
 
     it("supports headers", () => {
-      var response = Response.json("hello", {
+      const response = Response.json("hello", {
         headers: {
           "content-type": "potato",
           "x-hello": "world",
@@ -313,13 +313,13 @@ describe("Response", () => {
         "http://example.com/hello/world",
         "http://example.com/hello/world/",
       ];
-      for (let input of inputs) {
+      for (const input of inputs) {
         expect(Response.redirect(input).headers.get("Location")).toBe(input);
       }
     });
 
     it("supports headers", () => {
-      var response = Response.redirect("https://example.com", {
+      const response = Response.redirect("https://example.com", {
         headers: {
           "content-type": "potato",
           "x-hello": "world",
@@ -343,13 +343,13 @@ describe("Response", () => {
   });
   it("clone", async () => {
     gc();
-    var body = new Response("<div>hello</div>", {
+    const body = new Response("<div>hello</div>", {
       headers: {
         "content-type": "text/html; charset=utf-8",
       },
     });
     gc();
-    var clone = body.clone();
+    const clone = body.clone();
     gc();
     body.headers.set("content-type", "text/plain");
     gc();
@@ -362,7 +362,7 @@ describe("Response", () => {
   });
   it("invalid json", async () => {
     gc();
-    var body = new Response("<div>hello</div>", {
+    const body = new Response("<div>hello</div>", {
       headers: {
         "content-type": "text/html; charset=utf-8",
       },
@@ -381,7 +381,7 @@ describe("Response", () => {
 describe("Request", () => {
   it("clone", async () => {
     gc();
-    var body = new Request("https://hello.com", {
+    const body = new Request("https://hello.com", {
       headers: {
         "content-type": "text/html; charset=utf-8",
       },
@@ -390,7 +390,7 @@ describe("Request", () => {
     gc();
     expect(body.headers.get("content-type")).toBe("text/html; charset=utf-8");
     gc();
-    var clone = body.clone();
+    const clone = body.clone();
     gc();
     body.headers.set("content-type", "text/plain");
     gc();
@@ -410,7 +410,7 @@ describe("Request", () => {
 
 describe("Headers", () => {
   it("writes", async () => {
-    var headers = new Headers({
+    const headers = new Headers({
       "content-type": "text/html; charset=utf-8",
     });
     gc();

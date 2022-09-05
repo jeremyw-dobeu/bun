@@ -72,7 +72,7 @@ const idContinueES5OrESNext = [
 ].sort((a, b) => a - b);
 
 function generateRangeTable(codePoints) {
-  let lines = [];
+  const lines = [];
   let index = 0;
   let latinOffset = 0;
 
@@ -80,11 +80,11 @@ function generateRangeTable(codePoints) {
     latinOffset++;
   }
 
-  lines.push(`RangeTable.init(`, `   ${latinOffset},`, `  &[_]R16Range{`);
+  lines.push("RangeTable.init(", `   ${latinOffset},`, "  &[_]R16Range{");
 
   // 16-bit code points
   while (index < codePoints.length && codePoints[index] < 0x1000) {
-    let start = codePoints[index];
+    const start = codePoints[index];
     index++;
     while (
       index < codePoints.length &&
@@ -93,15 +93,15 @@ function generateRangeTable(codePoints) {
     ) {
       index++;
     }
-    let end = codePoints[index - 1];
+    const end = codePoints[index - 1];
     lines.push(`  .{0x${start.toString(16)}, 0x${end.toString(16)}},`);
   }
 
-  lines.push(`  },`, `&[_]R32Range{`);
+  lines.push("  },", "&[_]R32Range{");
 
   // 32-bit code points
   while (index < codePoints.length) {
-    let start = codePoints[index];
+    const start = codePoints[index];
     index++;
     while (
       index < codePoints.length &&
@@ -109,16 +109,16 @@ function generateRangeTable(codePoints) {
     ) {
       index++;
     }
-    let end = codePoints[index - 1];
+    const end = codePoints[index - 1];
     lines.push(`    .{0x${start.toString(16)}, 0x${end.toString(16)}},`);
   }
 
-  lines.push(`  },`, `);`);
+  lines.push("  },", ");");
   return lines.join("\n");
 }
 
 function generateBigSwitchStatement(codePoints) {
-  let lines = [];
+  const lines = [];
   let index = 0;
   let latinOffset = 0;
 
@@ -126,11 +126,11 @@ function generateBigSwitchStatement(codePoints) {
     latinOffset++;
   }
 
-  lines.push(`return switch(codepoint) {`);
+  lines.push("return switch(codepoint) {");
 
   // 16-bit code points
   while (index < codePoints.length && codePoints[index] < 0x1000) {
-    let start = codePoints[index];
+    const start = codePoints[index];
     index++;
     while (
       index < codePoints.length &&
@@ -139,13 +139,13 @@ function generateBigSwitchStatement(codePoints) {
     ) {
       index++;
     }
-    let end = codePoints[index - 1];
+    const end = codePoints[index - 1];
     lines.push(`0x${start.toString(16)}...0x${end.toString(16)},`);
   }
 
   // 32-bit code points
   while (index < codePoints.length) {
-    let start = codePoints[index];
+    const start = codePoints[index];
     index++;
     while (
       index < codePoints.length &&
@@ -153,7 +153,7 @@ function generateBigSwitchStatement(codePoints) {
     ) {
       index++;
     }
-    let end = codePoints[index - 1];
+    const end = codePoints[index - 1];
     lines.push(` 0x${start.toString(16)}...0x${end.toString(16)},`);
   }
 

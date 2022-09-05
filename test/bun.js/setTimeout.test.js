@@ -1,9 +1,9 @@
 import { it, expect } from "bun:test";
 
 it("setTimeout", async () => {
-  var lastID = -1;
+  let lastID = -1;
   const result = await new Promise((resolve, reject) => {
-    var numbers = [];
+    const numbers = [];
 
     for (let i = 1; i < 100; i++) {
       const id = setTimeout(() => {
@@ -24,7 +24,7 @@ it("setTimeout", async () => {
 });
 
 it("clearTimeout", async () => {
-  var called = false;
+  let called = false;
   const id = setTimeout(() => {
     called = true;
     expect(false).toBe(true);

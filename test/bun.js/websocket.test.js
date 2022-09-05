@@ -12,7 +12,7 @@ describe("WebSocket", () => {
       ws.onopen = resolve;
       ws.onerror = reject;
     });
-    var closed = new Promise((resolve, reject) => {
+    const closed = new Promise((resolve, reject) => {
       ws.onclose = resolve;
     });
     ws.close();
@@ -31,8 +31,8 @@ describe("WebSocket", () => {
     const count = 10;
 
     // 10 messages in burst
-    var promise = new Promise((resolve, reject) => {
-      var remain = count;
+    const promise = new Promise((resolve, reject) => {
+      let remain = count;
       ws.onmessage = (event) => {
         gc(true);
         expect(event.data).toBe("Hello World!");
@@ -52,7 +52,7 @@ describe("WebSocket", () => {
     }
 
     await promise;
-    var echo = 0;
+    let echo = 0;
 
     // 10 messages one at a time
     function waitForEcho() {

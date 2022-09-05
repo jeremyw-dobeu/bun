@@ -1,29 +1,32 @@
-const _tmpl$ = /*#__PURE__*/ _$template(
-    `<div id="main"><h1 class="base selected" id="my-h1" disabled readonly=""><a href="/">Welcome</a></h1></div>`,
-    6
-  ),
-  _tmpl$2 = /*#__PURE__*/ _$template(
-    `<div><div></div><div> </div><div></div></div>`,
-    8
-  ),
-  _tmpl$3 = /*#__PURE__*/ _$template(`<div></div>`, 2),
-  _tmpl$4 = /*#__PURE__*/ _$template(`<div class="a b"></div>`, 2),
-  _tmpl$5 = /*#__PURE__*/ _$template(`<input type="checkbox">`, 1),
-  _tmpl$6 = /*#__PURE__*/ _$template(`<div class="\`a">\`$\`</div>`, 2),
-  _tmpl$7 = /*#__PURE__*/ _$template(
-    `<button class="static hi" type="button">Write</button>`,
-    2
-  ),
-  _tmpl$8 = /*#__PURE__*/ _$template(`<button class="a b c">Hi</button>`, 2);
+const _tmpl$ = /* #__PURE__ */ _$template(
+  '<div id="main"><h1 class="base selected" id="my-h1" disabled readonly=""><a href="/">Welcome</a></h1></div>',
+  6
+);
+const _tmpl$2 = /* #__PURE__ */ _$template(
+  "<div><div></div><div> </div><div></div></div>",
+  8
+);
+const _tmpl$3 = /* #__PURE__ */ _$template("<div></div>", 2);
+const _tmpl$4 = /* #__PURE__ */ _$template('<div class="a b"></div>', 2);
+const _tmpl$5 = /* #__PURE__ */ _$template('<input type="checkbox">', 1);
+const _tmpl$6 = /* #__PURE__ */ _$template('<div class="`a">`$`</div>', 2);
+const _tmpl$7 = /* #__PURE__ */ _$template(
+  '<button class="static hi" type="button">Write</button>',
+  2
+);
+const _tmpl$8 = /* #__PURE__ */ _$template(
+  '<button class="a b c">Hi</button>',
+  2
+);
 
 const selected = true;
-let id = "my-h1";
+const id = "my-h1";
 let link;
 
 const template = (() => {
-  const _el$ = _tmpl$.cloneNode(true),
-    _el$2 = _el$.firstChild,
-    _el$3 = _el$2.firstChild;
+  const _el$ = _tmpl$.cloneNode(true);
+  const _el$2 = _el$.firstChild;
+  const _el$3 = _el$2.firstChild;
 
   _$spread(_el$, results, false, true);
 
@@ -46,9 +49,9 @@ const template = (() => {
 
   _$effect(
     (_p$) => {
-      const _v$ = welcoming(),
-        _v$2 = color(),
-        _v$3 = !!dynamic();
+      const _v$ = welcoming();
+      const _v$2 = color();
+      const _v$3 = !!dynamic();
 
       _v$ !== _p$._v$ && _$setAttribute(_el$2, "title", (_p$._v$ = _v$));
       _v$2 !== _p$._v$2 &&
@@ -67,11 +70,11 @@ const template = (() => {
 })();
 
 const template2 = (() => {
-  const _el$4 = _tmpl$2.cloneNode(true),
-    _el$5 = _el$4.firstChild,
-    _el$6 = _el$5.nextSibling,
-    _el$7 = _el$6.firstChild,
-    _el$8 = _el$6.nextSibling;
+  const _el$4 = _tmpl$2.cloneNode(true);
+  const _el$5 = _el$4.firstChild;
+  const _el$6 = _el$5.nextSibling;
+  const _el$7 = _el$6.firstChild;
+  const _el$8 = _el$6.nextSibling;
 
   _$spread(_el$4, () => getProps("test"), false, true);
 
@@ -127,12 +130,12 @@ const template7 = (() => {
   _$effect(
     (_p$) => {
       const _v$4 = {
-          "background-color": color(),
-          "margin-right": "40px",
-          ...props.style,
-        },
-        _v$5 = props.top,
-        _v$6 = !!props.active;
+        "background-color": color(),
+        "margin-right": "40px",
+        ...props.style,
+      };
+      const _v$5 = props.top;
+      const _v$6 = !!props.active;
 
       _p$._v$4 = _$style(_el$13, _v$4, _p$._v$4);
       _v$5 !== _p$._v$5 &&

@@ -214,7 +214,7 @@ function setIntervalPromise(after = 1, value, options = {}) {
         }).then(() => {
           if (notYielded > 0) {
             notYielded = notYielded - 1;
-            return { done: false, value: value };
+            return { done: false, value };
           }
           return { done: true };
         });

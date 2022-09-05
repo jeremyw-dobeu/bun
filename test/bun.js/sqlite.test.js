@@ -1,7 +1,7 @@
 import { expect, it, describe } from "bun:test";
 import { Database, constants } from "bun:sqlite";
 import { existsSync, fstat, writeFileSync } from "fs";
-var encode = (text) => Buffer.from(text);
+const encode = (text) => Buffer.from(text);
 
 it("Database.open", () => {
   // in a folder which doesn't exist
@@ -44,7 +44,7 @@ it("Database.open", () => {
 
   // create works
   {
-    var db = Database.open(`/tmp/database-${Math.random()}.sqlite`, {
+    const db = Database.open(`/tmp/database-${Math.random()}.sqlite`, {
       create: true,
     });
     db.close();
@@ -142,7 +142,7 @@ it("typechecks", () => {
 
   const q = db.prepare("SELECT * FROM test WHERE (name = ?)");
 
-  var expectfail = (val) => {
+  const expectfail = (val) => {
     try {
       q.run([val]);
       throw new Error("Expected error");
@@ -283,13 +283,13 @@ it("db.query()", () => {
 
   expect(db[Symbol.for("Bun.Database.cache.count")]).toBe(0);
 
-  var q = db.query("SELECT * FROM test WHERE name = ?");
+  const q = db.query("SELECT * FROM test WHERE name = ?");
   expect(q.get("Hello") === null).toBe(true);
 
   db.exec('INSERT INTO test (name) VALUES ("Hello")');
   db.exec('INSERT INTO test (name) VALUES ("World")');
 
-  var rows = db.query("SELECT * FROM test WHERE name = ?").all(["Hello"]);
+  let rows = db.query("SELECT * FROM test WHERE name = ?").all(["Hello"]);
 
   expect(JSON.stringify(rows)).toBe(JSON.stringify([{ id: 1, name: "Hello" }]));
 

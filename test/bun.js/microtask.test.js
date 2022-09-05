@@ -2,7 +2,7 @@ import { it } from "bun:test";
 
 it("queueMicrotask", async () => {
   // You can verify this test is correct by copy pasting this into a browser's console and checking it doesn't throw an error.
-  var run = 0;
+  let run = 0;
 
   await new Promise((resolve, reject) => {
     queueMicrotask(() => {
@@ -58,10 +58,11 @@ it("queueMicrotask", async () => {
       passed = exception instanceof TypeError;
     }
 
-    if (!passed)
+    if (!passed) {
       throw new Error(
         "queueMicrotask should throw a TypeError if the argument is not a function"
       );
+    }
   }
 
   {
@@ -72,9 +73,10 @@ it("queueMicrotask", async () => {
       passed = exception instanceof TypeError;
     }
 
-    if (!passed)
+    if (!passed) {
       throw new Error(
         "queueMicrotask should throw a TypeError if the argument is empty"
       );
+    }
   }
 });

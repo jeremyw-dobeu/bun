@@ -35,7 +35,7 @@ it("Module.createRequire().resolve", () => {
 
 it("import.meta.require.resolve", () => {
   const expected = Bun.resolveSync("./require-json.json", import.meta.dir);
-  var { resolve } = import.meta.require;
+  const { resolve } = import.meta.require;
   const result = resolve("./require-json.json");
   expect(result).toBe(expected);
 });
@@ -51,13 +51,13 @@ it("import() require + TLA", async () => {
 });
 
 it("import.meta.require (javascript, live bindings)", () => {
-  var Source = import.meta.require("./import.live.decl.js");
+  const Source = import.meta.require("./import.live.decl.js");
 
   // require transpiles to import.meta.require
-  var ReExport = require("./import.live.rexport.js");
+  const ReExport = require("./import.live.rexport.js");
 
   // dynamic require (string interpolation that way forces it to be dynamic)
-  var ReExportDynamic = require(`./import.live.${"rexport"
+  const ReExportDynamic = require(`./import.live.${"rexport"
     .split("")
     .join("")}.js`);
 
@@ -70,7 +70,7 @@ it("import.meta.require (javascript, live bindings)", () => {
 
   Source.setFoo(Source.foo + 1);
 
-  var { Namespace } = require("./import.live.rexport-require.js");
+  const { Namespace } = require("./import.live.rexport-require.js");
 
   expect(Namespace).toBe(Source);
   expect(ReExport.foo).toBe(3);

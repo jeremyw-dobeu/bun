@@ -11,7 +11,7 @@ const template = (
       style="fill:red;stroke:black;stroke-width:5;opacity:0.5"
     />
     <linearGradient gradientTransform="rotate(25)">
-      <stop offset="0%"></stop>
+      <stop offset="0%" />
     </linearGradient>
   </svg>
 );
@@ -58,7 +58,7 @@ const template6 = (
 );
 
 const template7 = (
-  <svg viewBox={"0 0 160 40"} xmlns="http://www.w3.org/2000/svg">
+  <svg viewBox="0 0 160 40" xmlns="http://www.w3.org/2000/svg">
     <a xlink:href={url}>
       <text x="10" y="25">
         MDN Web Docs
@@ -68,7 +68,7 @@ const template7 = (
 );
 
 const template8 = (
-  <svg viewBox={"0 0 160 40"} xmlns="http://www.w3.org/2000/svg">
+  <svg viewBox="0 0 160 40" xmlns="http://www.w3.org/2000/svg">
     <text x="10" y="25" textContent={text} />
   </svg>
 );

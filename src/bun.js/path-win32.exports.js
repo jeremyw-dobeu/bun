@@ -15,7 +15,7 @@ function bound(obj) {
     delimiter: obj.delimiter,
   };
 }
-var path = bound(Bun._Path(true));
+const path = bound(Bun._Path(true));
 
 export var {
   basename,

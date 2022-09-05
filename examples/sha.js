@@ -23,7 +23,7 @@ console.log("");
 
 // You can also do updates in chunks:
 // const hash = new Hash();
-for (let Hash of [SHA1, SHA256, SHA384, SHA512, SHA512_256]) {
+for (const Hash of [SHA1, SHA256, SHA384, SHA512, SHA512_256]) {
   const hash = new Hash();
   hash.update(first);
   hash.update(" " + second);
@@ -35,7 +35,7 @@ console.log("---- Base64 ----");
 console.log("");
 
 // base64 or hex
-for (let Hash of [SHA1, SHA256, SHA384, SHA512, SHA512_256]) {
+for (const Hash of [SHA1, SHA256, SHA384, SHA512, SHA512_256]) {
   const hash = new Hash();
   hash.update(first);
   hash.update(" " + second);
@@ -47,7 +47,7 @@ console.log("---- Uint8Array ----");
 console.log("");
 
 // Uint8Array by default
-for (let Hash of [SHA1, SHA256, SHA384, SHA512, SHA512_256]) {
+for (const Hash of [SHA1, SHA256, SHA384, SHA512, SHA512_256]) {
   const hash = new Hash();
   hash.update(first);
   hash.update(" " + second);
@@ -58,9 +58,9 @@ console.log("");
 console.log("---- Uint8Array can be updated in-place ----");
 console.log("");
 
-var oneBuf = new Uint8Array(1024);
+const oneBuf = new Uint8Array(1024);
 // Update Uint8Array in-place instead of allocating a new one
-for (let Hash of [SHA1, SHA256, SHA384, SHA512, SHA512_256]) {
+for (const Hash of [SHA1, SHA256, SHA384, SHA512, SHA512_256]) {
   const hash = new Hash();
   hash.update(first);
   hash.update(" " + second);

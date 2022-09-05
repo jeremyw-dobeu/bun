@@ -1,14 +1,16 @@
-import { template as _$template } from "r-dom";
-import { mergeProps as _$mergeProps } from "r-dom";
-import { spread as _$spread } from "r-dom";
-import { insert as _$insert } from "r-dom";
-import { createComponent as _$createComponent } from "r-dom";
+import {
+  template as _$template,
+  mergeProps as _$mergeProps,
+  spread as _$spread,
+  insert as _$insert,
+  createComponent as _$createComponent,
+} from "r-dom";
 
-const _tmpl$ = /*#__PURE__*/ _$template(`<div></div>`, 2),
-  _tmpl$2 = /*#__PURE__*/ _$template(`<module></module>`, 2),
-  _tmpl$3 = /*#__PURE__*/ _$template(`<module>Hello</module>`, 2),
-  _tmpl$4 = /*#__PURE__*/ _$template(`<module>Hi </module>`, 2),
-  _tmpl$5 = /*#__PURE__*/ _$template(`<div>Test 1</div>`, 2);
+const _tmpl$ = /* #__PURE__ */ _$template("<div></div>", 2);
+const _tmpl$2 = /* #__PURE__ */ _$template("<module></module>", 2);
+const _tmpl$3 = /* #__PURE__ */ _$template("<module>Hello</module>", 2);
+const _tmpl$4 = /* #__PURE__ */ _$template("<module>Hi </module>", 2);
+const _tmpl$5 = /* #__PURE__ */ _$template("<div>Test 1</div>", 2);
 
 const children = _tmpl$.cloneNode(true);
 
@@ -17,7 +19,7 @@ const dynamic = {
 };
 
 const template = _$createComponent(Module, {
-  children: children,
+  children,
 });
 
 const template2 = (() => {
@@ -106,7 +108,7 @@ const template13 = (() => {
 })();
 
 const template14 = _$createComponent(Module, {
-  children: children,
+  children,
 });
 
 const template15 = (() => {

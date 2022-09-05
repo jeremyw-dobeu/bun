@@ -3,23 +3,23 @@ const json = await (
 ).json();
 
 json["application/javascript"].extensions.push(
-  `ts`,
-  `tsx`,
-  `mts`,
-  `mtsx`,
-  `cts`,
-  `cjs`,
-  `mjs`,
-  `js`
+  "ts",
+  "tsx",
+  "mts",
+  "mtsx",
+  "cts",
+  "cjs",
+  "mjs",
+  "js"
 );
 
 delete json["application/node"];
 delete json["application/deno"];
 delete json["application/wasm"];
 
-var categories = new Set();
-var all = "pub const all = struct {";
-for (let key of Object.keys(json).sort()) {
+const categories = new Set();
+let all = "pub const all = struct {";
+for (const key of Object.keys(json).sort()) {
   const [category] = key.split("/");
   categories.add(category);
   all += `pub const @"${key}": MimeType = MimeType{.category = .@"${category}", .value = "${key}"};\n`;

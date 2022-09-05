@@ -1,9 +1,9 @@
 // import { Buffer } from "buffer";
-var buf = new Buffer(1024);
+const buf = new Buffer(1024);
 // var buf = new Uint8Array(1024);
-var view = new DataView(buf.buffer);
-var INTERVAL = 9999999;
-var time = (name, fn) => {
+const view = new DataView(buf.buffer);
+const INTERVAL = 9999999;
+const time = (name, fn) => {
   console.log(name, fn());
   //   for (let i = 0; i < INTERVAL; i++) fn();
 
@@ -16,7 +16,7 @@ var time = (name, fn) => {
   //   `Run ${new Intl.NumberFormat().format(INTERVAL)} times with a warmup:`,
   //   "\n"
 };
-var array = new Uint8Array(1024);
+const array = new Uint8Array(1024);
 new Uint8Array(buf.buffer).fill(255);
 time("Buffer[]     ", () => buf[0]);
 time("Uint8Array[]", () => array[0]);

@@ -2,7 +2,7 @@ import { test, expect, it, describe } from "bun:test";
 import { gc } from "./gc";
 
 it("arrayBufferToString u8", async () => {
-  var encoder = new TextEncoder();
+  const encoder = new TextEncoder();
   const bytes = encoder.encode("hello world");
   gc(true);
   expect(Bun.unsafe.arrayBufferToString(bytes)).toBe("hello world");
@@ -12,8 +12,8 @@ it("arrayBufferToString u8", async () => {
 });
 
 it("arrayBufferToString ArrayBuffer", async () => {
-  var encoder = new TextEncoder();
-  var bytes = encoder.encode("hello world");
+  const encoder = new TextEncoder();
+  const bytes = encoder.encode("hello world");
   gc(true);
   const out = Bun.unsafe.arrayBufferToString(bytes.buffer);
   expect(out).toBe("hello world");
@@ -25,9 +25,9 @@ it("arrayBufferToString ArrayBuffer", async () => {
 });
 
 it("arrayBufferToString u16", () => {
-  var encoder = new TextEncoder();
+  const encoder = new TextEncoder();
   const bytes = encoder.encode("hello world");
-  var uint16 = new Uint16Array(bytes.byteLength);
+  const uint16 = new Uint16Array(bytes.byteLength);
   uint16.set(bytes);
   const charCodes = Bun.unsafe
     .arrayBufferToString(uint16)
@@ -43,7 +43,7 @@ it("arrayBufferToString u16", () => {
 });
 
 it("Bun.allocUnsafe", () => {
-  var buffer = Bun.allocUnsafe(1024);
+  const buffer = Bun.allocUnsafe(1024);
   expect(buffer instanceof Uint8Array).toBe(true);
   expect(buffer.length).toBe(1024);
   buffer[0] = 0;

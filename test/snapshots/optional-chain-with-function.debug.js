@@ -2,7 +2,7 @@ export function test() {
   try {
     const multipleSecondaryValues = undefined;
     const ratings = ["123"];
-    var bar = multipleSecondaryValues?.map((value) => false);
+    let bar = multipleSecondaryValues?.map((value) => false);
     bar = bar?.multipleSecondaryValues?.map((value) => false);
     bar = bar?.bar?.multipleSecondaryValues?.map((value) => false);
     bar = {}?.bar?.multipleSecondaryValues?.map((value) => false);
@@ -12,4 +12,4 @@ export function test() {
   return testDone(import.meta.url);
 }
 
-//# sourceMappingURL=http://localhost:8080/optional-chain-with-function.js.map
+// # sourceMappingURL=http://localhost:8080/optional-chain-with-function.js.map

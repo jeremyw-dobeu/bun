@@ -86,10 +86,11 @@ describe("escapeHTML", () => {
       escapeHTML("<script>alert(1)</script>" + "lal😊ala".repeat(10))
     ).toBe("&lt;script&gt;alert(1)&lt;/script&gt;" + "lal😊ala".repeat(10));
 
-    for (let i = 1; i < 10; i++)
+    for (let i = 1; i < 10; i++) {
       expect(escapeHTML("<script>alert(1)</script>" + "la😊".repeat(i))).toBe(
         "&lt;script&gt;alert(1)&lt;/script&gt;" + "la😊".repeat(i)
       );
+    }
 
     expect(escapeHTML("la😊" + "<script>alert(1)</script>")).toBe(
       "la😊" + "&lt;script&gt;alert(1)&lt;/script&gt;"

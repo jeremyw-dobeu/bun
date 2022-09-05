@@ -303,7 +303,7 @@ function getTypes(fast) {
 }
 
 function ffiRunner(fast) {
-  const types = getTypes(fast)
+  const types = getTypes(fast);
   const {
     symbols: {
       returns_true,
@@ -372,10 +372,11 @@ function ffiRunner(fast) {
   expect(returns_false()).toBe(false);
 
   expect(returns_42_char()).toBe(42);
-  if (fast)
+  if (fast) {
     expect(returns_42_uint64_t().valueOf()).toBe(42);
-  else
+  } else {
     expect(returns_42_uint64_t().valueOf()).toBe(42n);
+  }
   Bun.gc(true);
   expect(Math.fround(returns_42_float())).toBe(Math.fround(42.41999804973602));
   expect(returns_42_double()).toBe(42.42);
@@ -383,18 +384,20 @@ function ffiRunner(fast) {
   expect(returns_neg_42_int8_t()).toBe(-42);
   expect(returns_42_uint16_t()).toBe(42);
   expect(returns_42_uint32_t()).toBe(42);
-  if (fast)
+  if (fast) {
     expect(returns_42_uint64_t()).toBe(42);
-  else
+  } else {
     expect(returns_42_uint64_t()).toBe(42n);
+  }
   expect(returns_neg_42_int16_t()).toBe(-42);
   expect(returns_neg_42_int32_t()).toBe(-42);
   expect(identity_int32_t(10)).toBe(10);
   Bun.gc(true);
-  if (fast)
+  if (fast) {
     expect(returns_neg_42_int64_t()).toBe(-42);
-  else
+  } else {
     expect(returns_neg_42_int64_t()).toBe(-42n);
+  }
 
   expect(identity_char(10)).toBe(10);
 
@@ -407,31 +410,37 @@ function ffiRunner(fast) {
 
   expect(identity_int8_t(10)).toBe(10);
   expect(identity_int16_t(10)).toBe(10);
-  if (fast)
+  if (fast) {
     expect(identity_int64_t(10)).toBe(10);
-  else
+  } else {
     expect(identity_int64_t(10)).toBe(10n);
+  }
   expect(identity_uint8_t(10)).toBe(10);
   expect(identity_uint16_t(10)).toBe(10);
   expect(identity_uint32_t(10)).toBe(10);
-  if (fast)
+  if (fast) {
     expect(identity_uint64_t(10)).toBe(10);
-  else
+  } else {
     expect(identity_uint64_t(10)).toBe(10n);
+  }
   Bun.gc(true);
-  var bigArray = new BigUint64Array(8);
+  const bigArray = new BigUint64Array(8);
   new Uint8Array(bigArray.buffer).fill(255);
-  var bigIntArray = new BigInt64Array(bigArray.buffer);
+  const bigIntArray = new BigInt64Array(bigArray.buffer);
   expect(identity_uint64_t(bigArray[0])).toBe(bigArray[0]);
   expect(identity_uint64_t(bigArray[0] - BigInt(1))).toBe(
     bigArray[0] - BigInt(1)
   );
   if (fast) {
     expect(add_uint64_t(BigInt(-1) * bigArray[0], bigArray[0])).toBe(0);
-    expect(add_uint64_t(BigInt(-1) * bigArray[0] + BigInt(10), bigArray[0])).toBe(10);
+    expect(
+      add_uint64_t(BigInt(-1) * bigArray[0] + BigInt(10), bigArray[0])
+    ).toBe(10);
   } else {
     expect(add_uint64_t(BigInt(-1) * bigArray[0], bigArray[0])).toBe(0n);
-    expect(add_uint64_t(BigInt(-1) * bigArray[0] + BigInt(10), bigArray[0])).toBe(10n);
+    expect(
+      add_uint64_t(BigInt(-1) * bigArray[0] + BigInt(10), bigArray[0])
+    ).toBe(10n);
   }
   if (fast) {
     expect(identity_uint64_t(0)).toBe(0);
@@ -458,10 +467,11 @@ function ffiRunner(fast) {
   expect(add_int8_t(1, 1)).toBe(2);
   expect(add_int16_t(1, 1)).toBe(2);
   expect(add_int32_t(1, 1)).toBe(2);
-  if (fast)
+  if (fast) {
     expect(add_int64_t(1, 1)).toBe(2);
-  else
+  } else {
     expect(add_int64_t(1n, 1n)).toBe(2n);
+  }
   expect(add_uint8_t(1, 1)).toBe(2);
   expect(add_uint16_t(1, 1)).toBe(2);
   expect(add_uint32_t(1, 1)).toBe(2);
@@ -482,7 +492,7 @@ function ffiRunner(fast) {
   const second_ptr = ptr(new Buffer(8));
   expect(identity_ptr(second_ptr)).toBe(second_ptr);
 
-  var myCFunction = new CFunction({
+  const myCFunction = new CFunction({
     ptr: return_a_function_ptr_to_function_that_returns_true(),
     returns: "bool",
   });
